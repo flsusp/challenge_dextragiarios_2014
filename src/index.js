@@ -1,3 +1,4 @@
 var server = require("./server");
+var account = require("./account");
 
-server.start();
+server.start(account);
