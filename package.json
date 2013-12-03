@@ -1,10 +1,11 @@
 {
-  "name": "scaling challenge",
+  "name": "challenge_dextragiarios_2014",
   "dependencies": {
     "express": "3.x"
   },
   "devDependencies": {
     "vows": "0.7.x"
   },
-  "engine": "node >= 0.4.1"
+  "engine": "node >= 0.10.x",
+  "scripts": {"start": "nodejs src/index.js"}
 }
