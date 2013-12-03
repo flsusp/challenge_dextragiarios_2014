@@ -1,0 +1,10 @@
+{
+  "name": "scaling challenge",
+  "dependencies": {
+    "express": "3.x"
+  },
+  "devDependencies": {
+    "vows": "0.7.x"
+  },
+  "engine": "node >= 0.4.1"
+}
