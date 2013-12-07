@@ -6,11 +6,21 @@ var client = new pg.Client(conString);
 function find(id) {
 	var account = {};
 	account.id = id;
-	account.debit = function(value) {
-		console.log('debit of ' + value);
-	}
-	account.credit = function(value) {
-		console.log('credit of ' + value);
+	account.transact = function(value, callback) {
+		account.balance(function(balance) {
+			pg.connect(conString, function(err, client, done) {
+				if (err) {
+					return console.error('error fetching client from pool', err);
+				}
+				client.query('UPDATE account SET balance = ' + (balance + value) + ' WHERE id = ' + id, function(err, result) {
+					done();
+					if (err) {
+						return console.error('error reading account balance' , err);
+					}
+					callback();
+				});
+			});
+		});
 	}
 	account.balance = function(callback) {
 		pg.connect(conString, function(err, client, done) {
@@ -22,7 +32,7 @@ function find(id) {
 				if (err) {
 					return console.error('error reading account balance' , err);
 				}
-				callback(result.rows[0].balance);
+				callback(parseInt(result.rows[0].balance));
 			});
 		});
 	}

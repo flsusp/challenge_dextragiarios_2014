@@ -19,20 +19,37 @@ loadData.createAccountWithBalance = function (balance, callback) {
 };
 
 
-vows.describe('Reading account balance').addBatch({
-    'when account with balance 11 is created': {
-        topic: function () {
-		var c = this.callback;
-		loadData.createAccountWithBalance(11, function(err, id) {
-			account.find(id).balance(function(balance) {
-				c(null, balance);
+vows.describe('Given an account with balance of 11').addBatch({
+	'when read the account balance': {
+        	topic: function () {
+			var c = this.callback;
+			loadData.createAccountWithBalance(11, function(err, id) {
+				account.find(id).balance(function(balance) {
+					c(null, balance);
+				});
 			});
-		});
-	},
+		},
 
-        'then balance equal 11': function (topic) {
-            assert.equal (topic, 11);
-        }
-    }
+        'then balance equals 11': function (topic) {
+        	    assert.equal (topic, 11);
+	        }
+	    }
+	}).addBatch({
+	'when crediting 10 at the account balance': {
+        	topic: function () {
+			var c = this.callback;
+			loadData.createAccountWithBalance(11, function(err, id) {
+				account.find(id).transact(+10, function() {
+					account.find(id).balance(function(balance) {
+						c(null, balance);
+					});
+				});
+			});
+		},
+
+	'then balance equals 21': function (topic) {
+        	    assert.equal (topic, 21);
+		}
+	}
 }).export(module);
 

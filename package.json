@@ -6,10 +6,11 @@
     "pg": "~2.8.3"
   },
   "devDependencies": {
-    "vows": "0.7.x"
+    "vows": ">=0.7.x"
   },
   "engine": "node >= 0.10.x",
   "scripts": {
-    "start": "nodejs src/index.js"
+    "start": "nodejs src/index.js",
+    "test": "vows --spec"
   }
 }
