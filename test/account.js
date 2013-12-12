@@ -14,31 +14,31 @@ loadData.createAccountWithBalance = function (balance, callback) {
                 	return console.error('error fetching client from pool', err);
                 }
 		client.query('INSERT INTO account (balance) VALUES (' + balance + ') RETURNING id', function(err, result) {
-			callback(null, result.rows[0].id);
+			callback(result.rows[0].id);
 		});
 	});
 };
 
 vows.describe('Given an account with balance of 11').addBatch({
 	'when read the account balance': {
-        	topic: function () {
+       	topic: function () {
 			var c = this.callback;
-			loadData.createAccountWithBalance(11, function(err, id) {
+			loadData.createAccountWithBalance(11, function(id) {
 				account.find(id).balance(function(balance) {
 					c(null, balance);
 				});
 			});
 		},
 
-        	'then balance equals 11': function (topic) {
-        		assert.equal (topic, 11);
-	        }
+    	'then balance equals 11': function (topic) {
+    		assert.equal (topic, 11);
+        }
 	}
 }).addBatch({
 	'when crediting 10 at the account balance': {
-        	topic: function () {
+       	topic: function () {
 			var c = this.callback;
-			loadData.createAccountWithBalance(11, function(err, id) {
+			loadData.createAccountWithBalance(11, function(id) {
 				account.find(id).transact(+10, function() {
 					account.find(id).balance(function(balance) {
 						c(null, balance);
@@ -53,9 +53,9 @@ vows.describe('Given an account with balance of 11').addBatch({
 	}
 }).addBatch({
 	'when debting 10 at the account balance': {
-        	topic: function () {
+       	topic: function () {
 			var c = this.callback;
-			loadData.createAccountWithBalance(11, function(err, id) {
+			loadData.createAccountWithBalance(11, function(id) {
 				account.find(id).transact(-10, function() {
 					account.find(id).balance(function(balance) {
 						c(null, balance);
@@ -69,63 +69,20 @@ vows.describe('Given an account with balance of 11').addBatch({
 		}
 	}
 }).addBatch({
-	'when debting two transactions with value 8 in parallel at the account balance': {
-        	topic: function () {
+	'when debting 12 at the account balance': {
+       	topic: function () {
 			var c = this.callback;
-			loadData.createAccountWithBalance(11, function(err, id) {
-				function debtOf8(callback) {
-					account.find(id).transact(-8, function() { callback(); });
-				}
-				async.parallel([ debtOf8, debtOf8 ],
-					function() {
-						account.find(id).balance(function(balance) {
-							c(null, balance);
-						});
-					}
-				);
-			});
-		},
-
-		'then balance equals 3': function (topic) {
-        		assert.equal (topic, 3);
-		}
-	}
-}).addBatch({
-	'when there is lot of transactions in parallel for a long time': {
-        	topic: function () {
-			var c = this.callback;
-			loadData.createAccountWithBalance(11, function(err, id) {
-				function debtOf3(callback) {
-					account.find(id).transact(-3, function() { callback(); });
-				}
-				var debtTransactions = [];
-				for (var i = 0; i < 20; i++) {
-					debtTransactions.push(debtOf3);
-				}
-
-				var begin = new Date().getTime();
-				var afterTryBalance = 0;
-				async.until(function() {
-						var end = new Date().getTime();
-						return afterTryBalance < 0 || (end - begin > 10000);
-					}, function(callback) {
-						async.parallel(debtTransactions,
-							function() {
-								account.find(id).balance(function(balance) {
-									afterTryBalance = balance;
-									callback();
-								});
-							}
-						);
-					}, function() {
-						c(null, afterTryBalance);
+			loadData.createAccountWithBalance(11, function(id) {
+				account.find(id).transact(-12, function() {
+					account.find(id).balance(function(balance) {
+						c(null, balance);
+					});
 				});
 			});
 		},
 
-		'then balance is greater then 0': function (topic) {
-        		assert.isTrue(topic >= 0);
+		'then balance still equals 11': function (topic) {
+        		assert.equal (topic, 11);
 		}
 	}
 }).export(module);
-

@@ -4,7 +4,8 @@
     "express": "3.x",
     "express-params": ">=0.0.3",
     "pg": "~2.8.3",
-    "async": "~0.2.9"
+    "async": "~0.2.9",
+    "domain": "~0.1.5"
   },
   "devDependencies": {
     "vows": ">=0.7.x"
