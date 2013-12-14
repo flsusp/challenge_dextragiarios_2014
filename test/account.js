@@ -85,4 +85,31 @@ vows.describe('Given an account with balance of 11').addBatch({
         		assert.equal (topic, 11);
 		}
 	}
+}).addBatch({
+	'when crediting 10, one by one in parallel, at the account balance': {
+       	topic: function () {
+			var c = this.callback;
+
+			loadData.createAccountWithBalance(11, function(id) {
+				var functions = [];
+				for (var i = 0; i < 10; i++) {
+					functions.push(function(callback) {
+						account.find(id).transact(1, function() {
+							callback();
+						});
+					});
+				}
+
+				async.parallel(functions, function() {
+					account.find(id).balance(function(balance) {
+						c(null, balance);
+					});
+				});
+			});
+		},
+
+		'then balance equals 21': function (topic) {
+        		assert.equal (topic, 21);
+		}
+	}
 }).export(module);
