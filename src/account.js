@@ -8,13 +8,16 @@ function find(id) {
 	var account = {};
 	account.id = id;
 	account.transact = function(value, callback) {
+		value = parseInt(value);
 		account.balance(function(balance) {
-			if (value > 0 || balance + value >= 0) {
+			balance = parseInt(balance);
+			var newBalance = balance + value;
+			if (value > 0 || newBalance >= 0) {
 				pg.connect(conString, function(err, client, done) {
 					if (err) {
 						throw err;
 					}
-					client.query('UPDATE account SET balance = ' + (balance + value) + ' WHERE id = ' + id, function(err, result) {
+					client.query('UPDATE account SET balance = ' + newBalance + ' WHERE id = ' + id, function(err, result) {
 						done();
 						if (err) {
 							return console.error('error reading account balance' , err);

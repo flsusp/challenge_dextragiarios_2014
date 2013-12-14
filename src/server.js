@@ -21,8 +21,8 @@ function start(accountRepository, port) {
 
 	app.post('/account/:id/transaction', function(request, response) {
 		console.log('/account/' + request.params.id[0] + '/transaction');
-		accountRepository.find(request.params.id[0]).transact(request.body.value, function() {
-			response.send(200);
+		accountRepository.find(parseInt(request.params.id[0])).transact(parseInt(request.body.value), function() {
+			response.send(200, 'Transaction ok');
 		});
 	});
 
