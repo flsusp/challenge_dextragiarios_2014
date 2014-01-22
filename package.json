@@ -5,7 +5,8 @@
     "express-params": ">=0.0.3",
     "pg": "~2.8.3",
     "async": "~0.2.9",
-    "domain": "~0.1.5"
+    "domain": "~0.1.5",
+    "nconf": ">=0.6.x"
   },
   "devDependencies": {
     "vows": ">=0.7.x"

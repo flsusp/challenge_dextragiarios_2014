@@ -1,5 +1,6 @@
 var pg = require('pg');
-var conString = "postgres://challenge_user:123mudar@localhost:5432/challenge";
+
+var conString = require("./../src/config").config().get('conString');
 
 var account = require("./../src/account");
 
