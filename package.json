@@ -13,6 +13,6 @@
   "engine": "node >= 0.10.x",
   "scripts": {
     "start": "nodejs src/index.js",
-    "test": "vows --spec"
+    "test": "vows --spec test/*"
   }
 }

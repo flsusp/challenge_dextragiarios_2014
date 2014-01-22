@@ -1,5 +1,5 @@
 var pg = require('pg'); 
-var conString = "postgres://challenge_user:123mudar@localhost/challenge";
+var conString = "postgres://challenge_user:123mudar@localhost:5433/challenge";
 var call = require("./callback").call;
 
 var client = new pg.Client(conString);
@@ -15,12 +15,12 @@ function find(id) {
 			if (value > 0 || newBalance >= 0) {
 				pg.connect(conString, function(err, client, done) {
 					if (err) {
-						throw err;
+			           	return console.log('error fetching client from pool', err);
 					}
 					client.query('UPDATE account SET balance = ' + newBalance + ' WHERE id = ' + id, function(err, result) {
 						done();
 						if (err) {
-							return console.error('error reading account balance' , err);
+							return console.log('error reading account balance' , err);
 						}
 						call(callback);
 					});
@@ -38,7 +38,7 @@ function find(id) {
 			client.query('SELECT balance FROM account WHERE id = ' + id, function(err, result) {
 				done();
 				if (err) {
-					throw err;
+		           	return console.log('error fetching client from pool', err);
 				}
 				if (result.rows.length == 0) {
 					call(callback, null);

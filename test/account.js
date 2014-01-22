@@ -1,5 +1,5 @@
 var pg = require('pg');
-var conString = "postgres://challenge_user:123mudar@localhost/challenge";
+var conString = "postgres://challenge_user:123mudar@localhost:5433/challenge";
 
 var account = require("./../src/account");
 
@@ -10,9 +10,9 @@ var vows = require('vows'),
 var loadData = {};
 loadData.createAccountWithBalance = function (balance, callback) {
 	pg.connect(conString, function(err, client, done) {
-        	if (err) {
-                	return console.error('error fetching client from pool', err);
-                }
+       	if (err) {
+           	return console.log('error fetching client from pool', err);
+        }
 		client.query('INSERT INTO account (balance) VALUES (' + balance + ') RETURNING id', function(err, result) {
 			callback(result.rows[0].id);
 		});
