@@ -1,5 +1,5 @@
 var pg = require('pg'); 
-var conString = "postgres://challenge_user:123mudar@localhost:5433/challenge";
+var conString = "postgres://challenge_user:123mudar@localhost:5432/challenge";
 var call = require("./callback").call;
 
 var client = new pg.Client(conString);
