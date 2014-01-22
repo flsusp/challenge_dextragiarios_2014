@@ -4,7 +4,7 @@ var app = express();
 
 params.extend(app);
 
-function start(accountRepository, port) {
+function start(accountRepository, productRepository, port) {
 	app.use(express.bodyParser());
 	app.param('id', /^\d+$/);
 
@@ -23,6 +23,27 @@ function start(accountRepository, port) {
 		console.log('/account/' + request.params.id[0] + '/transaction');
 		accountRepository.find(parseInt(request.params.id[0])).transact(parseInt(request.body.value), function() {
 			response.send(200, 'Transaction ok');
+		});
+	});
+
+	app.get('/product/:id/stock', function(request, response) {
+		console.log('/product/' + request.params.id[0] + '/stock');
+		productRepository.find(request.params.id[0]).stock(function(stock) {
+			if (stock === null) {
+				response.send(404);
+			} else {
+				response.send(200, 'Stock is ' + stock);
+			}
+		});
+	});
+
+	app.post('/product/:id/purchase', function(request, response) {
+		console.log('/product/' + request.params.id[0] + '/purchase');
+		productRepository.find(request.params.id[0]).purchase(request.body.accountId, 1, function(status) {
+			if (status == 'success') {
+				response.send(200, status);
+			}
+			response.send(500);
 		});
 	});
 

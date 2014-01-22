@@ -15,6 +15,7 @@ loadData.createAccountWithBalance = function (balance, callback) {
            	return console.log('error fetching client from pool', err);
         }
 		client.query('INSERT INTO account (balance) VALUES (' + balance + ') RETURNING id', function(err, result) {
+			done();
 			callback(result.rows[0].id);
 		});
 	});
