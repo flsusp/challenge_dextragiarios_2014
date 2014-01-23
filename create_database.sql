@@ -1,6 +1,6 @@
-create role challenge_user with login unencrypted password '123mudar';
-
 create database challenge owner challenge_user;
+
+create role challenge_user with login unencrypted password '123mudar';
 
 create table account (id serial primary key, nome varchar(30));
 
@@ -11,7 +11,7 @@ create table product (id serial primary key, price decimal not null);
 create table stock (id serial primary key, idProduct int references product(id), relativeQuantity bigint not null default 0);
 
 
-create table negative_balance (account_id int not null references account(id), balance decimal not null, time timestamp not null);
+/*create table negative_balance (account_id int not null references account(id), balance decimal not null, time timestamp not null);
 
 create table negative_stock (product_id int not null references product(id), stock bigint not null, time timestamp not null);
 
@@ -34,5 +34,4 @@ END;
 $BODY$ LANGUAGE 'plpgsql';
 
 CREATE TRIGGER tg_register_negative_stock AFTER UPDATE ON product FOR EACH ROW WHEN (NEW.stock < 0)
-EXECUTE PROCEDURE sp_register_negative_stock();
-/**/
+EXECUTE PROCEDURE sp_register_negative_stock();*/

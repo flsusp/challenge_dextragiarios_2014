@@ -34,20 +34,22 @@ function find(id) {
 				call(callback, 'error');
 		      	return;
 			} 
-			client.query('UPDATE product SET stock = CASE WHEN (stock + ' + quantity +' > 0 AND id = ' + id + ') THEN stock + ' + quantity + ' ELSE stock END', function(err, result) {
-				done();
-				if (result.rowCount == 0) {
-					console.log('error product stock', err);
-					call(callback, 'error');
-					return;
-				}
-				if (err) {
-					console.log('error reading product stock', err);
-					call(callback, 'error');
-					return;
-				}
-				call(callback, 'success');
-			});
+				//client.query('UPDATE product SET stock = CASE WHEN (stock + ' + quantity +' > 0 AND id = ' + id + ') THEN stock + ' + quantity + ' ELSE stock END', function(err, result) {
+				client.query('INSERT INTO stock VALUES('+ id + ',' + quantity + ') WHERE (SELECT sum(relativeQuantity) FROM stock WHERE idProduct =' + id + ') > 0', 
+					function(err, result) {
+						done();
+						if (result.rowCount == 0) {
+							console.log('error product stock', err);
+							call(callback, 'error');
+							return;
+						}
+						if (err) {
+							console.log('error reading product stock', err);
+							call(callback, 'error');
+							return;
+						}
+						call(callback, 'success');
+					});
 		});
 	}
 
@@ -60,6 +62,7 @@ function find(id) {
 				throw err;
 			}
 			client.query('SELECT stock FROM product WHERE id = ' + id, function(err, result) {
+				//client.query('');
 				done();
 				if (err) {
 		           	return console.log('error fetching client from pool', err);
