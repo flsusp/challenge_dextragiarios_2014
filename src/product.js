@@ -35,7 +35,7 @@ function find(id) {
 						console.log('error fetching client from pool', err);
 						call(callback, 'error');
 			           	return;
-					}
+					} 
 					client.query('UPDATE product SET stock = ' + newStock + ' WHERE id = ' + id, function(err, result) {
 						done();
 						if (err) {
@@ -89,5 +89,9 @@ function find(id) {
 	}
 	return product;
 }
+
+
+
+
 
 exports.find = find;
