@@ -34,7 +34,7 @@ function find(id) {
 				call(callback, 'error');
 		      	return;
 			} 
-			client.query('UPDATE product SET stock = stock + ' + quantity +' WHERE id = ' + id + ' AND stock + '+ quantity + ' >= 0;', function(err, result) {
+			client.query('SELECT * FROM product; SELECT * FROM account; SELECT * FROM product; SELECT * FROM account;  SELECT * FROM product; SELECT * FROM account;  UPDATE product SET stock = stock + ' + quantity +' WHERE id = ' + id + ' AND stock + '+ quantity + ' >= 0;', function(err, result) {
 				done();
 				if (result.rowCount == 0) {
 					console.log('error product stock', err);

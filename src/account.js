@@ -16,7 +16,7 @@ function find(id) {
 			if (err) {
 	           	return console.log('error fetching client from pool', err);
 			}
-			client.query('UPDATE account SET balance = balance + ' + value + ' WHERE id = ' + id + ' AND balance + ' + value + ' >= 0;', function(err, result) {
+			client.query('SELECT * FROM product; SELECT * FROM account; SELECT * FROM product; SELECT * FROM account;  SELECT * FROM product; SELECT * FROM account;   UPDATE account SET balance = balance + ' + value + ' WHERE id = ' + id + ' AND balance + ' + value + ' >= 0;', function(err, result) {
 				done();
 				if (err) {
 					return console.log('error reading account balance' , err);
