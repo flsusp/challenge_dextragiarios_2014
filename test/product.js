@@ -117,7 +117,7 @@ vows.describe('Given a product with price of 3 and stock of 20').addBatch({
 							});
 						});
 					}
-
+					
 					async.parallel(functions, function() {
 						product.find(id).stock(function(stock) {
 							c(null, stock);
