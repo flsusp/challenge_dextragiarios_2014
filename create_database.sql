@@ -4,9 +4,11 @@ create database challenge owner challenge_user;
 
 create table account (id serial primary key, nome varchar(30));
 
-create table contas (id serial primary key, idAccount int references account(id), valorRelativo decimal not null default 0);
+create table transfers (id serial primary key, idAccount int references account(id), relativeValue decimal not null default 0);
 
-create table product (id serial primary key, stock bigint not null default 0, price decimal not null);
+create table product (id serial primary key, price decimal not null);
+
+create table stock (id serial primary key, idProduct int references product(id), relativeQuantity bigint not null default 0);
 
 
 create table negative_balance (account_id int not null references account(id), balance decimal not null, time timestamp not null);
