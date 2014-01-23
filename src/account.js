@@ -11,9 +11,12 @@ function find(id) {
 	account.id = id;
 	account.transact = function(value, callback) {
 		value = parseInt(value);
+		console.log('VALOR: ' + value);
 		account.balance(function(balance) {
 			balance = parseInt(balance);
+			console.log('BALANCE: ' + balance);
 			var newBalance = balance + value;
+			console.log('newBalance: ' + balance);
 			if (value > 0 || newBalance >= 0) {
 				pg.connect(conString, function(err, client, done) {
 					if (err) {

@@ -14,8 +14,11 @@ function find(id) {
 	product.id = id;
 	product.purchase = function(accountId, quantity, callback) {
 		product.price(function(price) {
-			integration.debitFee(price, function(realValue) {
-				account.find(accountId).transact(-realValue, function() {
+			console.log('PRICE: ' + price);
+			integration.debitFee(price, function(extra) {
+				console.log('PRICE: ' + price);
+				console.log('REALVALUE: ' + extra);
+				account.find(accountId).transact(-(extra + price), function() {
 					updateStock(-quantity, callback);	
 				});
 			});
