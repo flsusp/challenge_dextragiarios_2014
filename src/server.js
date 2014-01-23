@@ -13,6 +13,7 @@ function start(accountRepository, productRepository, port) {
 		accountRepository.find(request.params.id[0]).balance(function(balance) {
 			if (balance === null) {
 				response.send(404);
+				//
 			} else {
 				response.send(200, 'Balance is ' + balance);
 			}
