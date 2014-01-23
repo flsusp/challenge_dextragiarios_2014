@@ -35,3 +35,4 @@ $BODY$ LANGUAGE 'plpgsql';
 
 CREATE TRIGGER tg_register_negative_stock AFTER UPDATE ON product FOR EACH ROW WHEN (NEW.stock < 0)
 EXECUTE PROCEDURE sp_register_negative_stock();
+/**/
