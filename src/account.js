@@ -10,6 +10,7 @@ function find(id) {
 	var account = {};
 	account.id = id;
 	account.transact = function(value, callback) {
+		//TODO: por aqui
 		value = parseInt(value);
 		account.balance(function(balance) {
 			balance = parseInt(balance);

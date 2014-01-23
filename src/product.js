@@ -24,33 +24,36 @@ function find(id) {
 	product.add = function(quantity, callback) {
 		updateStock(quantity, callback);
 	}
+
+
 	var updateStock = function(quantity, callback) {
 		quantity = parseInt(quantity);
-		product.stock(function(stock) {
-			stock = parseInt(stock);
-			var newStock = stock + quantity;
-			if (newStock >= 0) {
-				pg.connect(conString, function(err, client, done) {
-					if (err) {
-						console.log('error fetching client from pool', err);
-						call(callback, 'error');
-			           	return;
-					} 
-					client.query('UPDATE product SET stock = ' + newStock + ' WHERE id = ' + id, function(err, result) {
-						done();
-						if (err) {
-							console.log('error reading product stock', err);
-							call(callback, 'error');
-							return;
-						}
-						call(callback, 'success');
-					});
-				});
-			} else {
+		pg.connect(conString, function(err, client, done) {
+			if (err) {
+				console.log('error fetching client from pool', err);
+				call(callback, 'error');
+		      	return;
+			} 
+			client.query('UPDATE product SET stock = stock + ' + quantity +' WHERE id = ' + id + ' AND stock + '+ quantity + '> 0;', function(err, result) {
+				done();
+				if (result.rowCount == 0) {
+					console.log('error product stock', err);
+					call(callback, 'error');
+					return;
+				}
+				if (err) {
+					console.log('error reading product stock', err);
+					call(callback, 'error');
+					return;
+				}
 				call(callback, 'success');
-			}
+			});
 		});
 	}
+
+
+
+
 	product.stock = function(callback) {
 		pg.connect(conString, function(err, client, done) {
 			if (err) {
@@ -89,6 +92,7 @@ function find(id) {
 	}
 	return product;
 }
+
 
 
 
