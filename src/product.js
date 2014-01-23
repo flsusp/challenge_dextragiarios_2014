@@ -14,10 +14,7 @@ function find(id) {
 	product.id = id;
 	product.purchase = function(accountId, quantity, callback) {
 		product.price(function(price) {
-			console.log('PRICE: ' + price);
 			integration.debitFee(price, function(extra) {
-				console.log('PRICE: ' + price);
-				console.log('REALVALUE: ' + extra);
 				account.find(accountId).transact(-(extra + price), function() {
 					updateStock(-quantity, callback);	
 				});
@@ -37,7 +34,7 @@ function find(id) {
 				call(callback, 'error');
 		      	return;
 			} 
-			client.query('UPDATE product SET stock = stock + ' + quantity +' WHERE id = ' + id + ' AND stock + '+ quantity + '> 0;', function(err, result) {
+			client.query('UPDATE product SET stock = stock + ' + quantity +' WHERE id = ' + id + ' AND stock + '+ quantity + ' >= 0;', function(err, result) {
 				done();
 				if (result.rowCount == 0) {
 					console.log('error product stock', err);

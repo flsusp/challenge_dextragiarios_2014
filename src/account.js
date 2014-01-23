@@ -12,29 +12,23 @@ function find(id) {
 	account.transact = function(value, callback) {
 		//TODO: por aqui
 		value = parseInt(value);
-		console.log('VALOR: ' + value);
-		account.balance(function(balance) {
-			balance = parseInt(balance);
-			console.log('BALANCE: ' + balance);
-			var newBalance = balance + value;
-			console.log('newBalance: ' + balance);
-			if (value > 0 || newBalance >= 0) {
-				pg.connect(conString, function(err, client, done) {
-					if (err) {
-			           	return console.log('error fetching client from pool', err);
-					}
-					client.query('UPDATE account SET balance = ' + newBalance + ' WHERE id = ' + id, function(err, result) {
-						done();
-						if (err) {
-							return console.log('error reading account balance' , err);
-						}
-						call(callback);
-					});
-				});
-			} else {
-				call(callback);
+		pg.connect(conString, function(err, client, done) {
+			if (err) {
+	           	return console.log('error fetching client from pool', err);
 			}
+			client.query('UPDATE account SET balance = balance + ' + value + ' WHERE id = ' + id + ' AND balance + ' + value + ' >= 0;', function(err, result) {
+				done();
+				if (err) {
+					return console.log('error reading account balance' , err);
+				}
+				if (result.rowCount == 0) {
+					call(callback, 'not enough funds to transact');
+				} else {
+					call(callback, 'success');
+				}
+			});
 		});
+		
 	}
 	account.balance = function(callback) {
 		pg.connect(conString, function(err, client, done) {
