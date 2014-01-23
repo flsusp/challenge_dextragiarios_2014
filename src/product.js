@@ -34,7 +34,7 @@ function find(id) {
 				call(callback, 'error');
 		      	return;
 			} 
-			client.query('UPDATE product SET stock = CASE WHEN (stock + ' + quantity +' > 0 AND id = ' + id + ') THEN stock + ' + quantity + ' END;', function(err, result) {
+			client.query('UPDATE product SET stock = CASE WHEN (stock + ' + quantity +' > 0 AND id = ' + id + ') THEN stock + ' + quantity + ' ELSE stock END', function(err, result) {
 				done();
 				if (result.rowCount == 0) {
 					console.log('error product stock', err);
