@@ -33,7 +33,7 @@ function find(id) {
 			}
 			account.balance(function(balance) {
 				if (balance < 0) {
-					console.log('Oh my God!!! Balance for account', id, 'is', balance);
+					console.log('Oh my God!!! Balance for account ' + id + ' is ' + balance);
 				}
 				if ((balance + value) < 0) {
 					console.log('insufficient value', err);
