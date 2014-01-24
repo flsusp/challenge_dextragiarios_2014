@@ -9,45 +9,59 @@ var client = new pg.Client(conString);
 function find(id) {
 	var account = {};
 	account.id = id;
+
+	account.addValue = function(value, client, done, callback) {
+		client.query('INSERT INTO transfers(idAccount, relativeValue) VALUES('+ id + ',' + value + ') ', 
+			function(err, result) {
+				done();
+				call(callback, 'success');
+			});
+	}
+
+
 	account.transact = function(value, callback) {
-		//TODO: por aqui
 		value = parseInt(value);
 		pg.connect(conString, function(err, client, done) {
 			if (err) {
-	           	return console.log('error fetching client from pool', err);
+				console.log('error fetching client from pool', err);
+				call(callback, 'error');
+		      	return;
 			}
-			client.query('UPDATE account SET balance = balance + ' + value + ' WHERE id = ' + id + ' AND balance + ' + value + ' >= 0;', function(err, result) {
-				done();
-				if (err) {
-					return console.log('error reading account balance' , err);
+			if (value > 0) {
+				account.addValue(value, client, done, callback);
+				return;
+			}
+			account.balance(function(balance) {
+				if ((balance + value) < 0) {
+					console.log('insufficient value', err);
+					call(callback, 'error');
+					return;
 				}
-				if (result.rowCount == 0) {
-					call(callback, 'not enough funds to transact');
-				} else {
-					call(callback, 'success');
-				}
+				account.addValue(value, client, done, callback);
 			});
 		});
-		
 	}
+
 	account.balance = function(callback) {
 		pg.connect(conString, function(err, client, done) {
 			if (err) {
 				throw err;
 			}
-			client.query('SELECT balance FROM account WHERE id = ' + id, function(err, result) {
-				done();
-				if (err) {
-		           	return console.log('error fetching client from pool', err);
-				}
-				if (result.rows.length == 0) {
-					call(callback, null);
-				} else {
-					call(callback, parseInt(result.rows[0].balance));
-				}
-			});
+			client.query('SELECT sum(relativeValue) FROM transfers WHERE idAccount =' + id, 
+				function(err, result) {
+						done();
+						if (err) {
+							console.log('error reading transfers', err);
+							call(callback, 'error');
+							return;
+						}
+						call(callback, parseInt(result.rows[0].sum));
+						return;
+					});
+				//call(callback, 'to aqui');
 		});
 	}
+
 	return account;
 }
 

@@ -12,6 +12,7 @@ var client = new pg.Client(conString);
 function find(id) {
 	var product = {};
 	product.id = id;
+
 	product.purchase = function(accountId, quantity, callback) {
 		product.price(function(price) {
 			integration.debitFee(price, function(extra) {
@@ -21,8 +22,17 @@ function find(id) {
 			});
 		});
 	}
+
 	product.add = function(quantity, callback) {
 		updateStock(quantity, callback);
+	}
+
+	product.addStock = function(quantity, client, done, callback) {
+		client.query('INSERT INTO stock (idProduct, relativeQuantity) VALUES('+ id + ',' + quantity + ') ', 
+			function(err, result) {
+				done();
+				call(callback, 'success');
+			});
 	}
 
 
@@ -33,48 +43,42 @@ function find(id) {
 				console.log('error fetching client from pool', err);
 				call(callback, 'error');
 		      	return;
-			} 
-				//client.query('UPDATE product SET stock = CASE WHEN (stock + ' + quantity +' > 0 AND id = ' + id + ') THEN stock + ' + quantity + ' ELSE stock END', function(err, result) {
-				client.query('INSERT INTO stock VALUES('+ id + ',' + quantity + ') WHERE (SELECT sum(relativeQuantity) FROM stock WHERE idProduct =' + id + ') > 0', 
-					function(err, result) {
-						done();
-						if (result.rowCount == 0) {
-							console.log('error product stock', err);
-							call(callback, 'error');
-							return;
-						}
-						if (err) {
-							console.log('error reading product stock', err);
-							call(callback, 'error');
-							return;
-						}
-						call(callback, 'success');
-					});
+			}
+			if (quantity > 0) {
+				product.addStock(quantity, client, done, callback);
+				return;
+			}
+			product.stock(function(stock) {
+				if ((stock + quantity) < 0) {
+					console.log('insufficient quantity', err);
+					call(callback, 'error');
+					return;
+				}
+				product.addStock(quantity, client, done, callback);
+			});
 		});
 	}
-
-
-
 
 	product.stock = function(callback) {
 		pg.connect(conString, function(err, client, done) {
 			if (err) {
 				throw err;
 			}
-			client.query('SELECT stock FROM product WHERE id = ' + id, function(err, result) {
-				//client.query('');
-				done();
-				if (err) {
-		           	return console.log('error fetching client from pool', err);
-				}
-				if (result.rows.length == 0) {
-					call(callback, null);
-				} else {
-					call(callback, parseInt(result.rows[0].stock));
-				}
-			});
+			client.query('SELECT sum(relativeQuantity) as "soma" FROM stock WHERE idProduct =' + id, 
+				function(err, result) {
+						done();
+						if (err) {
+							console.log('error reading stock', err);
+							call(callback, 'error');
+							return;
+						}
+						call(callback, parseInt(result.rows[0].soma));
+						return;
+					});
+				//call(callback, 'success');
 		});
 	}
+
 	product.price = function(callback) {
 		pg.connect(conString, function(err, client, done) {
 			if (err) {

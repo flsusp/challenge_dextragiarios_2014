@@ -9,25 +9,33 @@ var vows = require('vows'),
 	async = require('async');
 
 var loadData = {};
+
 loadData.createProductWithStock = function (price, stock, callback) {
 	pg.connect(conString, function(err, client, done) {
        	if (err) {
            	return console.log('error fetching client from pool', err);
-        }
-		client.query('INSERT INTO product (price, stock) VALUES (' + price + ', ' + stock + ') RETURNING id', function(err, result) {
-			done();
-			callback(result.rows[0].id);
+        }        
+		client.query('INSERT INTO product (price) VALUES (' + price + ') RETURNING id', function(err, result) {
+			done();			
+			client.query('INSERT INTO stock (idProduct, relativeQuantity) VALUES (' + result.rows[0].id + ',' + stock + ')', function(errr, resultt) {
+				done();				
+				callback(result.rows[0].id);				
+			});			
+			
 		});
 	});
 };
-loadData.createAccountWithBalance = function (balance, callback) {
+loadData.createAccountWithBalance = function (balance, nome, callback) {
 	pg.connect(conString, function(err, client, done) {
        	if (err) {
            	return console.log('error fetching client from pool', err);
-        }
-		client.query('INSERT INTO account (balance) VALUES (' + balance + ') RETURNING id', function(err, result) {
-			done();
-			callback(result.rows[0].id);
+        }        
+		client.query('INSERT INTO account (nome) VALUES (\''+nome +'\') RETURNING id', function(err, result) {
+			done();			
+			client.query('INSERT INTO transfers(idAccount, relativeValue) VALUES (' + result.rows[0].id + ', ' + balance + ')', function(errr, resultt) {
+				done();				
+				callback(result.rows[0].id);
+			});
 		});
 	});
 };
@@ -68,7 +76,7 @@ vows.describe('Given a product with price of 3 and stock of 20').addBatch({
 	'when purchasing 9 from the product stock': {
        	topic: function () {
 			var c = this.callback;
-			loadData.createAccountWithBalance(11, function(accountId) {
+			loadData.createAccountWithBalance(11, 'asd', function(accountId) {
 				loadData.createProductWithStock(3, 20, function(id) {
 					product.find(id).purchase(accountId, 9, function() {
 						product.find(id).stock(function(stock) {
@@ -87,7 +95,7 @@ vows.describe('Given a product with price of 3 and stock of 20').addBatch({
 	'when purchasing 22 from the product stock': {
        	topic: function () {
 			var c = this.callback;
-			loadData.createAccountWithBalance(11, function(accountId) {
+			loadData.createAccountWithBalance(11, 'asd', function(accountId) {
 				loadData.createProductWithStock(3, 20, function(id) {
 					product.find(id).purchase(accountId, 22, function() {
 						product.find(id).stock(function(stock) {
@@ -107,7 +115,7 @@ vows.describe('Given a product with price of 3 and stock of 20').addBatch({
        	topic: function () {
 			var c = this.callback;
 
-			loadData.createAccountWithBalance(11, function(accountId) {
+			loadData.createAccountWithBalance(11, 'asd', function(accountId) {
 				loadData.createProductWithStock(3, 20, function(id) {
 					var functions = [];
 					for (var i = 0; i < 8; i++) {

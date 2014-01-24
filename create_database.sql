@@ -1,6 +1,6 @@
-create database challenge owner challenge_user;
+'create database challenge owner challenge_user;
 
-create role challenge_user with login unencrypted password '123mudar';
+'create role challenge_user with login unencrypted password '123mudar';
 
 create table account (id serial primary key, nome varchar(30));
 
