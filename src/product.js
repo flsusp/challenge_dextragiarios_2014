@@ -50,8 +50,9 @@ function find(id) {
 			}
 			product.stock(function(stock) {
 				if (stock < 0) {
-					console.log('Oh my God!!! Stock for product ' + id + ' is ' + stock);
+					console.log('Oh my God!!! Stock for product', id, 'is', stock);
 				}
+
 				if ((stock + quantity) < 0) {
 					console.log('insufficient quantity', err);
 					call(callback, 'error');
