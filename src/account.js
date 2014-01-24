@@ -32,14 +32,14 @@ function find(id) {
 				return;
 			}
 			account.balance(function(balance) {
-				// if (balance < 0) {
-				// 	console.log('Oh my God!!! Balance for account ' + id + ' is ' + balance);
-				// }
-				// if ((balance + value) < 0) {
-				// 	console.log('insufficient value', err);
-				// 	call(callback, 'error');
-				// 	return;
-				// }
+				if (balance < 0) {
+					console.log('Oh my God!!! Balance for account ' + id + ' is ' + balance);
+				}
+				if ((balance + value) < 0) {
+					console.log('insufficient value', err);
+					call(callback, 'error');
+					return;
+				}
 				account.addValue(value, client, done, callback);
 			});
 		});
