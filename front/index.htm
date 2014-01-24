@@ -3,6 +3,7 @@
 	<meta name="description" content="XHTML Strict / 0.9 SNAPSHOT C.H.A.O.S STORE" />
 	<meta name="keywords" content="xhtml, css, markup, xml, html" />
 	<link rel="stylesheet" type="text/css" href="style/main.css">
+	<link rel="stylesheet" type="text/css" href="style/loginForm.css">
 </head>
 <body>
 	<div id="nav">
@@ -15,14 +16,39 @@
 			<li><a href="#">About</a></li>
 		</ul>
 	</div>
-	<div id="body">
-		<div class="loginForm">
+	<div id="main-content">
+		<div id="wrapper">
+			<form name="login-form" class="login-form" action="" method="post">
+			
+				<div class="header">
+					<center>
+					<h1>Login Form</h1>
+					<span>Fill out the form below to login to my super awesome imaginary control panel.</span>
+				</center>
+				</div>
+			
+				<div class="content">
+					<input name="username" type="text" class="input username" placeholder="Username" />
+					<div class="user-icon"></div>
+						<input name="password" type="password" class="input password" placeholder="Password" />
+					<div class="pass-icon"></div>		
+				</div>
+
+				<div class="footer">
+				<input type="submit" name="submit" value="Login" class="button" />
+				<input type="submit" name="submit" value="Register" class="register" />
+				</div>
+
+			</form>
+		</div>
+		<div class="gradient"></div>
+		<!--<div class="loginForm">
 			<form name="login">
 				 <p class="titleForm">Sign in</p>
 				 ID:<input type="text" value="ID" />
 				 <input type="submit" value="Login" />
 			</form>
-		</div>
+		</div>-->
 	</div> 
 </body>
 </html>
