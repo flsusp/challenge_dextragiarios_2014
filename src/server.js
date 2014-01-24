@@ -22,7 +22,7 @@ function start(accountRepository, productRepository, port) {
 	app.post('/account/:id/transaction', function(request, response) {		
 		accountRepository.find(parseInt(request.params.id[0])).transact(parseInt(request.body.value), function() {
 			response.send(200, 'Transaction ok');
-			console.log('/account/' + request.params.id[0] + '/transaction' + request.body.value);
+			console.log('/account/' + request.params.id[0] + '/transaction');
 		});
 	});
 
@@ -33,7 +33,7 @@ function start(accountRepository, productRepository, port) {
 				response.send(404);
 			} else {
 				response.send(200, 'Stock is ' + stock);
-				console.log('/product/' + request.params.id[0] + '/stock' + stock);
+				console.log('/product/' + request.params.id[0] + '/stock');
 			}
 		});
 	});
