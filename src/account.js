@@ -18,6 +18,18 @@ function find(id) {
 			});
 	}
 
+	var readBalance = function(client, callback) {
+		client.query('SELECT sum(relativeValue) FROM transfers WHERE idAccount =' + id, 
+				function(err, result) {
+						if (err) {
+							console.log('error reading transfers', err);
+							call(callback, err);
+							return;
+						}
+						call(callback, null, parseInt(result.rows[0].sum));
+						return;
+					});
+	}
 
 	account.transact = function(value, callback) {
 		value = parseInt(value);
@@ -31,11 +43,12 @@ function find(id) {
 				account.addValue(value, client, done, callback);
 				return;
 			}
-			account.balance(function(balance) {
+			readBalance(client, function(err, balance) {
 				if (balance < 0) {
 					console.log('Oh my God!!! Balance for account ' + id + ' is ' + balance);
 				}
 				if ((balance + value) < 0) {
+					done();
 					console.log('insufficient value', err);
 					call(callback, 'error');
 					return;
@@ -50,7 +63,7 @@ function find(id) {
 			if (err) {
 				throw err;
 			}
-			client.query('SELECT sum(relativeValue) FROM transfers WHERE idAccount =' + id, 
+			readBalance(client, 
 				function(err, result) {
 						done();
 						if (err) {
@@ -58,10 +71,9 @@ function find(id) {
 							call(callback, 'error');
 							return;
 						}
-						call(callback, parseInt(result.rows[0].sum));
+						call(callback, result);
 						return;
 					});
-				//call(callback, 'to aqui');
 		});
 	}
 
