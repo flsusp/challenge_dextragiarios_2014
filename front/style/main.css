@@ -19,6 +19,7 @@ li {
 	border-top: 1px solid;
 	/*border-bottom: 1px solid;*/
 	border-color: #f2f1f0;
+	z-index: 1000;
 }
 
 #nav a {
@@ -37,10 +38,24 @@ li {
 	font-family: 'Open Sans', sans-serif;
 }
 
+#header {
+	background-color:#202021;
+	width:100%;
+	height: 120px;
+	box-shadow: 0px 1px 50px #5E5E5E;
+	position: relative;
+	/*display: none;*/
+	top: 0px;
+	font-family: 'Open Sans', sans-serif;
+	border-top: 1px solid;
+	border-color: #f2f1f0;
+	background: rgba(65,72,72,0.75) url(../resources/images/header-bar-background.png) center;
+}
+
 #main-content {
 	width:850px;
 	margin:0px auto;
-	margin-top:80px;
+	margin-top: 30px;
 	font-family: 'Open Sans', sans-serif;
 	border: 1px solid;
 	border-color: #f2f1f0;
@@ -75,4 +90,3 @@ li {
 	left: 10px;
 	position: relative;
 }
-
