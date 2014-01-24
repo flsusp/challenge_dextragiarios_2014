@@ -22,7 +22,7 @@ function start(accountRepository, productRepository, port) {
 	app.post('/account/:id/transaction', function(request, response) {		
 		accountRepository.find(parseInt(request.params.id[0])).transact(parseInt(request.body.value), function() {
 			response.send(200, 'Transaction ok');
-			console.log('/account/' + request.params.id[0] + '/transaction');
+			console.log('/account/' + request.params.id[0] + '/transaction ASDASD');
 		});
 	});
 
