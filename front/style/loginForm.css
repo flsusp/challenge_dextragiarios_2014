@@ -169,12 +169,12 @@ CONTENT
 }
 
 .user-icon {
-	top:153px;
+	top:148.5px;
 	background: rgba(65,72,72,0.75) url(../resources/images/user-icon.png) no-repeat center;	
 }
 
 .pass-icon {
-	top:201px;
+	top:197.5px;
 	background: rgba(65,72,72,0.75) url(../resources/images/pass-icon.png) no-repeat center;
 }
 
