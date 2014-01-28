@@ -1,0 +1,48 @@
+<html>
+<head>
+	<meta name="description" content="XHTML Strict / 0.9 SNAPSHOT C.H.A.O.S STORE" />
+	<meta name="keywords" content="xhtml, css, markup, xml, html" />
+	<link rel="stylesheet" type="text/css" href="style/main.css">
+	<script type="text/javascript" src="script/jquery-1.9.1.min.js"/>
+	<script type="text/javascript" src="script/doT.min.js"/>
+	<script type="text/javascript" src="js/resource/jquery.holyavenger.js"/>
+	<script type="text/javascript" src="js/resource/jquery.holyavenger.dot.js"/>
+
+	<script type="text/javascript" src="script/login.js"/>
+
+	<script type="text/javascript">
+			$.ajax({
+			url : '/index',
+			success : function(ret) {
+				$('body').html(ret);
+				// $.holy('templates/novo.xml', {
+				// 	//pacote : pacote
+				// });
+			}
+		});
+	</script>
+</head>
+<body>
+	<div id="nav">
+		<p class="title"><a href="#">TheCodePress<span class="subtitle">.blogspot.com</span></a></p>
+		<ul id="navigation">
+			<li><a href="#">Home</a></li>
+			<li><a href="#">My Blog</a></li>
+			<li><a href="#">Tutorials</a></li>
+			<li><a href="#">Downloads</a></li>
+			<li><a href="#">About</a></li>
+		</ul>
+	</div>
+	<div id="body">
+		<div id="mainForm">
+			<form name="login" action="JavaScript:login();">
+				 ID:<input type="text" id="txtId" />
+				 <input type="submit" value="Submit" />				 
+			</form>
+
+			<input type="hidden" id="idUser" value="">
+			
+		</div>
+	</div> 
+</body>
+</html>

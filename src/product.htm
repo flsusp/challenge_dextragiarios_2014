@@ -1,0 +1,50 @@
+<html>
+<head>
+	<meta name="description" content="XHTML Strict / 0.9 SNAPSHOT C.H.A.O.S STORE" />
+	<meta name="keywords" content="xhtml, css, markup, xml, html"/>
+	 <meta charset="utf-8">
+	
+	<link rel="stylesheet" type="text/css" href="style/main.css">
+	<script type="text/javascript" src="script/jquery-1.9.1.min.js"></script>
+
+	<script type="text/javascript" src="productList.js"></script>
+	
+	<script type="text/javascript">
+		$.getJSON(
+		"/teste.js", function(data){
+		$('#nome').text(data.nome);
+		$('#perfil').text(data.perfil);
+		$('#horario').text(data.horario);
+		}
+	);
+	</script>
+</head>
+<body>
+	<div id="nav">
+		<p class="title"><a href="#">TheCodePress<span class="subtitle">.blogspot.com</span></a></p>
+		<ul id="navigation">
+			<li><a href="#">Home</a></li>
+			<li><a href="#">My Blog</a></li>
+			<li><a href="#">Tutorials</a></li>
+			<li><a href="#">Downloads</a></li>
+			<li><a href="#">About</a></li>
+		</ul>
+	</div>
+	<div id="body">
+		 <table border="1">
+		<tr>
+			<th>Nome</td>
+			<th>Perfil</td>
+			<th>Horários</td>
+		</tr>
+		<tr>
+			<td id="nome" ></td>
+			<td id="perfil" ></td>
+			<td id="horario" ></td>
+		</tr>
+	<table>
+
+
+	</div> 
+</body>
+</html>

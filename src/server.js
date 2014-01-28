@@ -1,12 +1,15 @@
 var express = require('express');
 var params = require('express-params')
 var app = express();
+var fs = require('fs');
+var path = require('path');
 
 params.extend(app);
 
 function start(accountRepository, productRepository, port) {
 	app.use(express.bodyParser());
 	app.param('id', /^\d+$/);
+	app.use(express.static(path.join(__dirname, 'front')));
 
 	app.get('/account/:id/balance', function(request, response) {
 		console.log('/account/' + request.params.id[0] + '/balance');
@@ -18,6 +21,53 @@ function start(accountRepository, productRepository, port) {
 			}
 		});
 	});
+
+	app.get('/index', function(request, response) {
+		fs.readFile(__dirname + '/index.htm', 
+			function (err, html) {
+			    if (err) {
+			    	console.log('erro');
+			        //throw err; 
+			        return;
+			    }       
+			    console.log('ok');
+			    response.writeHeader(200, {"Content-Type": "text/html"});  
+			    response.write(html);  
+			    response.end();  
+		});
+	});
+
+
+	app.get('/product', function(request, response) {
+		fs.readFile(__dirname + '/product.htm', 
+			function (err, html) {
+			    if (err) {
+			    	console.log('erro');
+			        //throw err; 
+			        return;
+			    }       
+			    console.log('ok product');
+			    response.writeHeader(200, {"Content-Type": "text/html"});  
+			    response.write(html);  
+			    response.end();  
+		});
+	});
+
+	app.get('/productList', function(request, response) {
+		fs.readFile(__dirname + '/product.htm', 
+			function (err, html) {
+			    if (err) {
+			    	console.log('erro');
+			        //throw err; 
+			        return;
+			    }       
+			    console.log('ok product');
+			    response.writeHeader(200, {"Content-Type": "application/json"});  
+			    response.write(html);  
+			    response.end();  
+		});
+	});
+
 
 	app.post('/account/:id/transaction', function(request, response) {
 		console.log('/account/' + request.params.id[0] + '/transaction');

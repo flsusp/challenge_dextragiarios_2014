@@ -7,6 +7,6 @@ function login() {
 
 	sessionStorage.setItem('id', id);
 
-	window.location.href = location.origin + "/front/redirect.htm";
+	window.location.href = "/product";
 }
 

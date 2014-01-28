@@ -1,8 +1,8 @@
 <html>
 <head>
-	<meta name="description" content="XHTML Strict / 0.9 SNAPSHOT C.H.A.O.S STORE" />
-	<meta name="keywords" content="xhtml, css, markup, xml, html" />
 	<link rel="stylesheet" type="text/css" href="style/main.css">
+	<script type="text/javascript" src="script/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="script/login.js"></script>
 </head>
 <body>
 	<div id="nav">
@@ -17,10 +17,13 @@
 	</div>
 	<div id="body">
 		<div id="mainForm">
-			<form name="login">
-				 ID:<input type="text" value="ID">
-				 <input type="submit" value="Submit">
+			<form name="login" action="JavaScript:login();">
+				 ID:<input type="text" id="txtId" />
+				 <input type="submit" value="Submit" />				 
 			</form>
+
+			<input type="hidden" id="idUser" value="">
+			
 		</div>
 	</div> 
 </body>

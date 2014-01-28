@@ -51,9 +51,6 @@ function find(id) {
 		});
 	}
 
-
-
-
 	product.stock = function(callback) {
 		pg.connect(conString, function(err, client, done) {
 			if (err) {
@@ -77,7 +74,7 @@ function find(id) {
 			if (err) {
 				throw err;
 			}
-			client.query('SELECT price FROM product WHERE id = ' + id, function(err, result) {
+			var callback = function(err, result) {
 				done();
 				if (err) {
 		           	return console.log('error fetching client from pool', err);
@@ -87,7 +84,9 @@ function find(id) {
 				} else {
 					call(callback, parseFloat(result.rows[0].price));
 				}
-			});
+			}
+
+			client.query('SELECT price FROM product WHERE id = ' + id, callback);
 		});
 	}
 	return product;
