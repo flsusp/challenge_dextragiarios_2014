@@ -16,7 +16,7 @@ li {
 	padding: 0;
 	background: rgba(65,72,72,0.75) url(../resources/images/nav-bar-background2.png) repeat-x center;
 	background-color:#e50014;
-	box-shadow: 0px 1px 50px #5E5E5E;
+	box-shadow: 0px 0px 50px #5E5E5E;
 	width: 100%;
 	height: 40px;	
 	position: fixed;
@@ -36,7 +36,7 @@ li {
 	font-family: 'Open Sans', sans-serif;
 	border-top: 1px solid;
 	/*border-bottom: 1px solid;*/
-	border-color: #f2f1f0;
+	border-color: #c9c9c9;
 	
 }
 
