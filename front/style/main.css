@@ -72,6 +72,19 @@ li {
    HEADER STYLING
 *******************/
 
+
+	/* Busca */
+.topo-busca{
+    width:450px; height:40px; padding: 1px; background-color:#white; float:left; margin-top:11px; margin-right:3px; margin-left: 1px;
+}
+.topo-busca .topo-busca-campo{
+    width:443px; height:36px; border:1px solid #930312; background: #FFF; color:#9A9AA5; font-size:15px; padding-left:5px; float:left; line-height:35px;
+}
+.topo-busca .topo-busca-submit{
+    width:40px; height:34px; background: url(../resources/images/busca.png); border:0px none; cursor:pointer; float:left; margin-left:-41px; margin-top: 1;
+
+}
+
 .nav-header {
 	margin: 0 auto;
 	padding: 0;
@@ -128,7 +141,7 @@ li {
 	float: right;
 	width: 500px;
 	height: 40px;
-	background: green;
+	background: white;
 }
 
 .logo-header {
