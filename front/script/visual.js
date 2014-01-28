@@ -1,10 +1,10 @@
 $(document).ready(function(){
-	$("#nav").hide();
+	$("#nav-wrapper").hide();
     $(window).scroll(function(){
         if($(window).scrollTop() >  $(".nav-header").outerHeight()) {
-        	$("#nav").slideDown();
+        	$("#nav-wrapper").slideDown();
         } else {
-        	$("#nav").slideUp();
+        	$("#nav-wrapper").slideUp();
         }
     })
 })
