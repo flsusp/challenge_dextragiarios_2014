@@ -57,8 +57,8 @@ function find(id) {
 			}
 			readBalance(client, function(err, balance, max) {
 				if (balance < 0) {
-					console.log('Oh my God!!! Balance for account ' + id + ' is ' + balance);
 				}
+					console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Oh my God!!! Balance for account ' + id + ' is ' + balance + '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
 				if ((balance + value) < 0) {
 					done();
 					console.log('insufficient value', err);
