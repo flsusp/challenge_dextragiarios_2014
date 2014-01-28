@@ -6,5 +6,8 @@ $(document).ready(function(){
         } else {
         	$("#nav-wrapper").slideUp();
         }
-    })
+    });
+    $("#topo-busca").focus(function() {
+    	$("#topo-busca").value = "";
+    });
 })
