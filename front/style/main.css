@@ -79,23 +79,58 @@ li {
 *******************/
 
 
-	/* Busca */
+/*********
+   Busca
+**********/
+
 .topo-busca{
-    width:450px; height:40px; padding: 1px; background-color:#white; float:left; margin-top:11px; margin-right:3px; margin-left: 1px;
+	padding: 0px;
+	margin-top: 3px;
+	margin-left: 75px;
+    width: 450px; 
+    height: 40px; 
+    float: left; 
 }
 .topo-busca .topo-busca-campo{
-    width:443px; height:36px; border:1px solid #930312; background: #FFF; color:#9A9AA5; font-size:15px; padding-left:5px; float:left; line-height:35px;
+    width: 443px; 
+    height: 36px; 
+    border: 1px solid #cfcfcf; 
+    color: #9a9aa5; 
+    font-size: 15px; 
+    padding-left: 5px; 
+    float: left; 
+    line-height: 35px;
+    border-radius: 5px 0px 0px 5px;
+    box-shadow: 0 1px 3px rgba(20, 20, 20, 0.3) inset;
+    text-shadow: 1px 1px 0 #fff;
+    padding: 0px 10px;
+    transition: all 0.5s ease 0s;
+}
+
+.topo-busca .topo-busca-campo:focus {
+	background: #dfe9ec;
+	color: #414848;
+	box-shadow: inset 0 1px 2px rgba(0,0,0,0.25);
+	-moz-box-shadow: inset 0 1px 2px rgba(0,0,0,0.25);
+	-webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.25);
 }
 .topo-busca .topo-busca-submit{
-    width:40px; height:34px; background: url(../resources/images/busca.png); border:0px none; cursor:pointer; float:left; margin-left:-41px; margin-top: 1;
-
+    width: 40px; 
+    height: 34px; 
+    background: url(../resources/images/busca.png); 
+    border: 0px none; 
+    cursor: pointer; 
+    float: left; 
+    margin-left: -41px; 
+    margin-top: 1;
 }
 
+/********************/
 .nav-header {
 	margin: 0 auto;
 	padding: 0;
 	width: 100%;
-	height: 130px;
+	height: 120px;
 	position: relative;
 	top: 0px;
 	background-color:#202021;
@@ -126,8 +161,8 @@ li {
 	padding: 0;
 	float: right;
 	position: relative;
-	width: 550px;
-	height: 100px;
+	width: 589px;
+	height: 90px;
 	/*background: blue;*/
 }
 
@@ -135,25 +170,23 @@ li {
 	margin: 0;
 	padding: 0;
 	float: right;
-	width: 550px;
-	height: 60px;
-	background: pink;
+	width: 589px;
+	height: 50px;
 }
 
 .right-header-bottom {
 	margin: 0;
 	padding: 0;
 	float: right;
-	width: 550px;
+	width: 589px;
 	height: 40px;
-	background: white;
 }
 
 .logo-header {
 	margin: 0;
 	padding: 0;
 	width: 211px;
-	height: 100px;
+	height: 90px;
 	left: 10px;
 	color: #fff;
 	float: left;
@@ -164,7 +197,7 @@ li {
 	padding: 0;
 	width: 211px;
 	height: 60px;
-	margin-top: 25px;
+	margin-top: 10px;
 }
 /*******************
   CONTENT STYLING
