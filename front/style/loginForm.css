@@ -231,7 +231,6 @@ FOOTER
 .login-form .footer .button:hover {
 	background: #3f9db8;
 	border: 1px solid rgba(256,256,256,0.75);
-	
 	box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
 	-moz-box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
 	-webkit-box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);

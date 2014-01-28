@@ -13,6 +13,59 @@ li {
    NAV BAR STYLING
 *******************/
 
+/*********
+   Busca
+**********/
+
+.nav-busca {
+	padding: 0px;
+    width: 450px; 
+    height: 40px; 
+    float: left;
+    margin-top: -5px; 
+    margin-left: -100px;
+}
+
+.nav-busca .nav-busca-campo {
+    width: 400px; 
+    height: 30px; 
+    border: 1px solid #cfcfcf; 
+    color: #9a9aa5; 
+    font-size: 15px; 
+    padding-left: 5px; 
+    float: left; 
+    line-height: 35px;
+    border-radius: 5px 0px 0px 5px;
+    box-shadow: 0 1px 3px rgba(20, 20, 20, 0.3) inset;
+    text-shadow: 1px 1px 0 #fff;
+    padding: 0px 10px;
+    transition: all 0.5s ease 0s;
+}
+
+.nav-busca .nav-busca-campo:focus {
+	background: #dfe9ec;
+	color: #414848;
+	box-shadow: inset 0 1px 2px rgba(0,0,0,0.25);
+	-moz-box-shadow: inset 0 1px 2px rgba(0,0,0,0.25);
+	-webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.25);
+}
+
+.nav-busca .nav-busca-submit {
+    width: 40px; 
+    height: 34px; 
+    background: url(../resources/images/busca.png); 
+    border: 0px none; 
+    cursor: pointer; 
+    float: left; 
+    margin-left: -41px; 
+    margin-top: 1;
+}
+
+.nav-busca .nav-busca-submit:hover {
+	box-shadow: 0 1px 3px rgba(20, 20, 20, 0.3) inset;
+}
+/***********************/
+
 #nav-wrapper {
 	margin: 0 auto;
 	padding: 0;
@@ -31,7 +84,7 @@ li {
 	background-color:#e50014;*/
 	margin: 0 auto;
 	padding: 0;
-	width: 900px;
+	width: 800px;
 	height:40px;
 	top: 0px;
 	font-family: 'Open Sans', sans-serif;
@@ -50,8 +103,8 @@ li {
 }
 
 #navigation {
-	margin-top: 10px;
-	list-style-type:none;
+	margin-top: 7px;
+	list-style-type: none;
 	font-family: 'Open Sans', sans-serif;
 }
 
@@ -59,7 +112,7 @@ li {
 	color: #ededed;
 	font-family: verdana;
 	font-size: 25px;
-	width: 350px;
+	width: 275px;
 	margin-top: -5px;
 	margin-left: 5px;
 	font-weight: bold;
@@ -112,7 +165,7 @@ li {
 	-moz-box-shadow: inset 0 1px 2px rgba(0,0,0,0.25);
 	-webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.25);
 }
-.topo-busca .topo-busca-submit{
+.topo-busca .topo-busca-submit {
     width: 40px; 
     height: 34px; 
     background: url(../resources/images/busca.png); 
@@ -121,6 +174,10 @@ li {
     float: left; 
     margin-left: -41px; 
     margin-top: 1;
+}
+
+.topo-busca .topo-busca-submit:hover {
+	box-shadow: 0 1px 3px rgba(20, 20, 20, 0.3) inset;
 }
 
 /********************/
