@@ -11,44 +11,33 @@ function find(id) {
 	account.id = id;
 
 	account.addValue = function(value, max, client, done, callback) {
-		var query = '';
+		var query;
 		if (max < 0) {	
-			query += 'INSERT INTO transfers(idAccount, relativeValue) VALUES('+ id + ',' + value + ') ';
+			query = 'INSERT INTO transfers(idAccount, relativeValue) VALUES('+ id + ',' + value + ') ';
 		} else {
-			query += 'INSERT INTO transfers(idAccount, relativeValue, idAnt) VALUES('+ id + ',' + value + ',' + max + ')';
+			query = 'INSERT INTO transfers(idAccount, relativeValue, idAnt) VALUES('+ id + ',' + value + ',' + max + ')';
 		}
 
 		client.query(query, 
 			function(err, result) {
-				done();
+				done();				
 				if (err) {
-					console.log('sry');
-					call(callback, err);
+					//retry(value,callback);
+					account.transact(value, callback);
+					//call(callback, err);
 					return;
 				}
-				call(callback, 'success');
+				call(callback, false);
 			});
 	}
 
-	var readBalance = function(client, callback) {
-		client.query('SELECT sum(relativeValue), max(id) FROM transfers WHERE idAccount =' + id, 
-				function(err, result) {
-						if (err) {
-							console.log('error reading transfers', err);
-							call(callback, err);
-							return;
-						}
-						call(callback, null, parseInt(result.rows[0].sum), parseInt(result.rows[0].max));
-						return;
-					});
-	}
-
+	
 	account.transact = function(value, callback) {
 		value = parseInt(value);
 		pg.connect(conString, function(err, client, done) {
 			if (err) {
 				console.log('error fetching client from pool', err);
-				call(callback, 'error');
+				call(callback, true);
 		      	return;
 			}
 			if (value > 0) {
@@ -57,17 +46,30 @@ function find(id) {
 			}
 			readBalance(client, function(err, balance, max) {
 				if (balance < 0) {
-					console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Oh my God!!! Balance for account ' + id + ' is ' + balance + '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<');
+					console.log('<<Oh my God!!! Balance for account ' + id + ' is ' + balance + '<<<<<<');
 				}
 				if ((balance + value) < 0) {
 					done();
-					console.log('insufficient value', err);
-					call(callback, 'error');
+					console.log('insufficient value');
+					call(callback, true);
 					return;
 				}
 				account.addValue(value, max, client, done, callback);
 			});
 		});
+	}
+
+	var readBalance = function(client, callback) {
+		client.query('SELECT sum(relativeValue), max(id) FROM transfers WHERE idAccount =' + id, 
+				function(err, result) {
+						if (err) {
+							console.log('error reading transfers');
+							call(callback, err);
+							return;
+						}
+						call(callback, null, parseInt(result.rows[0].sum), parseInt(result.rows[0].max));
+						return;
+					});
 	}
 
 	account.balance = function(callback) {

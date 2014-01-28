@@ -1,6 +1,13 @@
 'create database challenge owner challenge_user;
 
-'create role challenge_user with login unencrypted password '123mudar';
+'
+
+drop table transfers;
+drop table stock;
+drop table product;
+drop table account;
+
+create role challenge_user with login unencrypted password '123mudar';
 
 create table account (id serial primary key, nome varchar(30));
 
@@ -10,6 +17,16 @@ create table product (id serial primary key, price decimal not null);
 
 create table stock (id serial primary key, idProduct int references product(id), relativeQuantity bigint not null default 0, idAnt int unique);
 
+insert into account (16, 'asd');
+insert into transfers (1,16, 200);
+insert into product values(1,1);
+insert into stock values (1,1,100000);
+insert into product values(2,2);
+insert into stock values (2,2,100000);
+insert into product values(3,3);
+insert into stock values (3,3,100000);
+insert into product values(4,4);
+insert into stock values (4,4,100000);
 
 /*create table negative_balance (account_id int not null references account(id), balance decimal not null, time timestamp not null);
 

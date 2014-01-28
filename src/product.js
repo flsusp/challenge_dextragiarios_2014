@@ -15,8 +15,12 @@ function find(id) {
 
 	product.purchase = function(accountId, quantity, callback) {
 		product.price(function(price) {
-			integration.debitFee(price, function(extra) {
-				account.find(accountId).transact(-(extra + price), function() {
+			integration.debitFee(price*quantity, function(extra) {
+				account.find(accountId).transact(-(extra+1)*(price*quantity), function(err) {
+					if (err){						
+						call(callback,'error');
+						return;
+					}
 					updateStock(-quantity, callback);	
 				});
 			});
@@ -27,40 +31,64 @@ function find(id) {
 		updateStock(quantity, callback);
 	}
 
-	product.addStock = function(quantity, client, done, callback) {
-		client.query('INSERT INTO stock (idProduct, relativeQuantity) VALUES('+ id + ',' + quantity + ') ', 
+	product.addStock = function(quantity, max, client, done, callback) {
+		var query;
+		if (max < 0) {	
+			query = 'INSERT INTO stock (idProduct, relativeQuantity) VALUES('+ id + ',' + quantity + ') ';
+		} else {
+			query = 'INSERT INTO stock (idProduct, relativeQuantity, idAnt) VALUES('+ id + ',' + quantity + ','+max+') ';
+			
+		}
+
+		client.query(query, 
 			function(err, result) {
-				done();
-				call(callback, 'success');
+				done();				
+				if (err) {
+					updateStock(quantity, callback);
+					return;
+				}
+				call(callback, false);
 			});
 	}
-
 
 	var updateStock = function(quantity, callback) {
 		quantity = parseInt(quantity);
 		pg.connect(conString, function(err, client, done) {
 			if (err) {
-				console.log('error fetching client from pool', err);
+				console.log('error fetching client from pool');
 				call(callback, 'error');
 		      	return;
 			}
 			if (quantity > 0) {
-				product.addStock(quantity, client, done, callback);
+				product.addStock(quantity,-1, client, done, callback);
 				return;
 			}
-			product.stock(function(stock) {
+			readStock(client, function(err, stock, max) {
 				if (stock < 0) {
 					console.log('Oh my God!!! Stock for product', id, 'is', stock);
 				}
 
 				if ((stock + quantity) < 0) {
-					console.log('insufficient quantity', err);
+					console.log('insufficient quantity');
 					call(callback, 'error');
 					return;
 				}
-				product.addStock(quantity, client, done, callback);
+				product.addStock(quantity, max, client, done, callback);
 			});
 		});
+	}
+
+	var readStock = function(client, callback) {
+		client.query('SELECT sum(relativeQuantity), max(id) FROM stock WHERE idProduct =' + id, 
+				function(err, result) {
+						if (err) {
+							console.log('error reading stock');
+							call(callback, err);
+							return;
+						}
+						call(callback, null, parseInt(result.rows[0].sum), parseInt(result.rows[0].max));
+						return;
+					});
 	}
 
 	product.stock = function(callback) {
@@ -68,18 +96,17 @@ function find(id) {
 			if (err) {
 				throw err;
 			}
-			client.query('SELECT sum(relativeQuantity) as "soma" FROM stock WHERE idProduct =' + id, 
+			readStock(client,
 				function(err, result) {
 						done();
 						if (err) {
-							console.log('error reading stock', err);
+							console.log('error reading stock');
 							call(callback, 'error');
 							return;
 						}
-						call(callback, parseInt(result.rows[0].soma));
+						call(callback, result);
 						return;
 					});
-				//call(callback, 'success');
 		});
 	}
 
@@ -91,7 +118,7 @@ function find(id) {
 			client.query('SELECT price FROM product WHERE id = ' + id, function(err, result) {
 				done();
 				if (err) {
-		           	return console.log('error fetching client from pool', err);
+		           	return console.log('error fetching client from pool');
 				}
 				if (result.rows.length == 0) {
 					call(callback, null);
@@ -103,10 +130,6 @@ function find(id) {
 	}
 	return product;
 }
-
-
-
-
 
 
 exports.find = find;
