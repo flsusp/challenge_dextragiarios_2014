@@ -31,13 +31,8 @@ li {
 	padding: 0;
 	width: 900px;
 	height:40px;
-	
 	top: 0px;
 	font-family: 'Open Sans', sans-serif;
-	border-top: 1px solid;
-	/*border-bottom: 1px solid;*/
-	border-color: #c9c9c9;
-	
 }
 
 #nav a {
@@ -61,7 +56,7 @@ li {
 	font-family: verdana;
 	font-size: 25px;
 	width: 350px;
-	margin-top: 4px;
+	margin-top: -5px;
 	margin-left: 5px;
 	font-weight: bold;
 	float: left;
@@ -85,11 +80,8 @@ li {
 	position: relative;
 	top: 0px;
 	background-color:#202021;
-	box-shadow: 0px 1px 50px #5E5E5E;
 	border-top: 1px solid;
 	border-color: #f2f1f0;
-	border-bottom: 1px solid;
-	border-bottom-color: #838383;
 	background: rgba(65,72,72,0.75) url(../resources/images/header-background.png) repeat-x center;
 	/*display: none;*/
 	font-family: 'Open Sans', sans-serif;
@@ -100,6 +92,7 @@ li {
 	margin: 0 auto;
 	padding: 0;
 	width: 800px;
+	box-shadow: 0px 1px 50px #5E5E5E;
 }
 .top-header {
 	margin: 0;
@@ -115,7 +108,7 @@ li {
 	padding: 0;
 	float: right;
 	position: relative;
-	width: 700px;
+	width: 500px;
 	height: 100px;
 	background: blue;
 }
@@ -124,7 +117,7 @@ li {
 	margin: 0;
 	padding: 0;
 	float: right;
-	width: 700px;
+	width: 500px;
 	height: 60px;
 	background: pink;
 }
@@ -133,7 +126,7 @@ li {
 	margin: 0;
 	padding: 0;
 	float: right;
-	width: 700px;
+	width: 500px;
 	height: 40px;
 	background: green;
 }
@@ -141,14 +134,19 @@ li {
 .logo-header {
 	margin: 0;
 	padding: 0;
-	background: #000;
-	width: 100px;
+	width: 281px;
 	height: 100px;
 	left: 10px;
 	color: #fff;
 	float: left;
 }
 
+.logo-image {
+	margin: 0;
+	padding: 0;
+	width: 281px;
+	height: 80px;
+}
 /*******************
   CONTENT STYLING
 *******************/
@@ -167,21 +165,21 @@ li {
   PRODUCT STYLING
 *******************/
 
-.imagelink{
+.imagelink {
 	display:block;
 	background:url(../resources/images/comprar.jpg);
 	width: 180px;
 	height: 26px;
 }
 
-.imagelink:hover{
+.imagelink:hover {
 	display:block;
 	background:url(../resources/images/comprar2.jpg);
 	width: 180px;
 	height: 26px
 }
 
-#linha{
+#linha {
 	width="800";
 	margin-left: auto ;
  	margin-right: auto ;
