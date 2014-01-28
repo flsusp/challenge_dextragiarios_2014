@@ -9,6 +9,24 @@ var call = require("./callback").call;
 
 var client = new pg.Client(conString);
 
+function allProducts(callback) {
+		pg.connect(conString, function(err, client, done) {
+			if (err) {
+				throw err;
+			}
+			client.query('SELECT * FROM product', function(err, result) {
+				done();
+				if (err) {
+		           	return console.log('error ', err);
+				}
+				console.log("entrou " + result);
+				call(callback, result.rows);
+			});
+		});
+	}
+
+
+
 function find(id) {
 	var product = {};
 	product.id = id;

@@ -1,82 +1,320 @@
+@import url(http://fonts.googleapis.com/css?family=Bree+Serif);
+@import url(http://fonts.googleapis.com/css?family=Montserrat+Alternates:700);
+
+
 body {
-	margin:0px;
+	margin: 0;
 }
 
 li {
-	display:inline;
-	padding:10px;
+	display: inline;
+	padding: 10px;
+}
+
+/*******************
+   NAV BAR STYLING
+*******************/
+
+/*********
+   Busca
+**********/
+
+.nav-busca {
+	padding: 0px;
+    width: 430px; 
+    height: 40px; 
+    float: left;
+    margin-top: -2px; 
+    margin-left: -100px;
+}
+
+.nav-busca .nav-busca-campo {
+    width: 400px; 
+    height: 30px; 
+    border: 1px solid #cfcfcf; 
+    color: #9a9aa5; 
+    font-size: 15px; 
+    padding-left: 5px; 
+    float: left; 
+    line-height: 35px;
+    border-radius: 5px 0px 0px 5px;
+    box-shadow: 0 1px 3px rgba(20, 20, 20, 0.3) inset;
+    text-shadow: 1px 1px 0 #fff;
+    padding: 0px 10px;
+    transition: all 0.5s ease 0s;
+}
+
+.nav-busca .nav-busca-campo:focus {
+	background: #dfe9ec;
+	color: #414848;
+	box-shadow: inset 0 1px 2px rgba(0,0,0,0.25);
+	-moz-box-shadow: inset 0 1px 2px rgba(0,0,0,0.25);
+	-webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.25);
+}
+
+.nav-busca .nav-busca-submit {
+    width: 33px; 
+    height: 28px; 
+    background: url(../resources/images/busca2.png); 
+    border: 0px none; 
+    cursor: pointer; 
+    float: left; 
+    margin-left: -34px; 
+    margin-top: 1;
+}
+
+.nav-busca .nav-busca-submit:hover {
+	box-shadow: 0 1px 3px rgba(20, 20, 20, 0.3) inset;
+}
+/***********************/
+
+#nav-wrapper {
+	margin: 0 auto;
+	padding: 0;
+	background: rgba(65,72,72,0.75) url(../resources/images/nav-bar-background2.png) repeat-x center;
+	background-color:#e50014;
+	box-shadow: 0px 0px 50px #5E5E5E;
+	width: 100%;
+	height: 40px;	
+	position: fixed;
+	z-index: 1000;
+	float: top;
 }
 
 #nav {
-	background-color:#262626;
-	width:100%;
-	height:50px;
-	box-shadow: 0px 1px 50px #5E5E5E;
-	position:fixed;
-	top:0px;
+	/*background: rgba(65,72,72,0.75) url(../resources/images/nav-bar-background2.png) repeat-x center;
+	background-color:#e50014;*/
+	margin: 0 auto;
+	padding: 0;
+	width: 800px;
+	height:40px;
+	top: 0px;
+	font-family: 'Open Sans', sans-serif;
 }
 
 #nav a {
-	font-family:verdana;
-	text-decoration:none;
-	color:#EDEDED;
+	font-family: 'Bree Serif', verdana;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+	text-decoration: none;
+	color: #414848;
+	transition: all 0.5s ease 0s;
 }
 
 #nav a:hover {
-	color:#BDBDBD;
+	color: #a7b3b7;
+}
+
+#navigation {
+	margin-top: 7px;
+	list-style-type: none;
+	font-family: 'Open Sans', sans-serif;
 }
 
 .title {
-	color:#EDEDED;
-	font-family:verdana;
-	font-size:25px;
-	width:350px;
-	margin-top:6px;
-	margin-left:150px;
-	font-weight:bold;
-	float:left;
+	color: #ededed;
+	font-family: verdana;
+	font-size: 25px;
+	width: 295px;
+	margin-top: -5px;
+	margin-left: 5px;
+	font-weight: bold;
+	float: left;
 }
 
 .subtitle {
-	color:#EDEDED;
-	font-family:verdana;
-	font-size:15px;
+	color: #b2bec3;
+	font-family: verdana;
+	font-size: 15px;
 }
 
+/*******************
+   HEADER STYLING
+*******************/
 
-#navigation {
-	list-style-type:none;
+
+/*********
+   Busca
+**********/
+
+.topo-busca{
+	padding: 0px;
+	margin-top: 3px;
+	margin-left: 75px;
+    width: 450px; 
+    height: 40px; 
+    float: left; 
+}
+.topo-busca .topo-busca-campo{
+    width: 443px; 
+    height: 36px; 
+    border: 1px solid #cfcfcf; 
+    color: #9a9aa5; 
+    font-size: 15px; 
+    padding-left: 5px; 
+    float: left; 
+    line-height: 35px;
+    border-radius: 5px 0px 0px 5px;
+    box-shadow: 0 1px 3px rgba(20, 20, 20, 0.3) inset;
+    text-shadow: 1px 1px 0 #fff;
+    padding: 0px 10px;
+    transition: all 0.5s ease 0s;
 }
 
-#body {
+.topo-busca .topo-busca-campo:focus {
+	background: #dfe9ec;
+	color: #414848;
+	box-shadow: inset 0 1px 2px rgba(0,0,0,0.25);
+	-moz-box-shadow: inset 0 1px 2px rgba(0,0,0,0.25);
+	-webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.25);
+}
+.topo-busca .topo-busca-submit {
+    width: 40px; 
+    height: 34px; 
+    background: url(../resources/images/busca.png); 
+    border: 0px none; 
+    cursor: pointer; 
+    float: left; 
+    margin-left: -41px; 
+    margin-top: 1;
+}
+
+.topo-busca .topo-busca-submit:hover {
+	box-shadow: 0 1px 3px rgba(20, 20, 20, 0.3) inset;
+}
+
+/********************/
+.nav-header {
+	margin: 0 auto;
+	padding: 0;
+	width: 100%;
+	height: 120px;
+	position: relative;
+	top: 0px;
+	background-color:#202021;
+	border-top: 1px solid;
+	border-color: #f2f1f0;
+	background: rgba(65,72,72,0.75) url(../resources/images/header-background.png) repeat-x center;
+	font-family: 'Open Sans', sans-serif;
+	text-align: center;
+}
+
+.nav-wrapper {
+	margin: 0 auto;
+	padding: 0;
+	width: 800px;
+	box-shadow: 0px 1px 50px #5E5E5E;
+}
+.top-header {
+	margin: 0;
+	padding: 0;
+	float: left;
+	height: 25px;
+	width: 100%;
+	background: cyan;
+}
+
+.right-header {
+	margin: 0;
+	padding: 0;
+	float: right;
+	position: relative;
+	width: 589px;
+	height: 90px;
+	/*background: blue;*/
+}
+
+.right-header-top {
+	margin: 0;
+	padding: 0;
+	float: right;
+	width: 589px;
+	height: 50px;
+}
+
+.right-header-bottom {
+	margin: 0;
+	padding: 0;
+	float: right;
+	width: 589px;
+	height: 40px;
+}
+
+.logo-header {
+	margin: 0;
+	padding: 0;
+	width: 211px;
+	height: 90px;
+	left: 10px;
+	color: #fff;
+	float: left;
+}
+
+.logo-image {
+	margin: 0;
+	padding: 0;
+	width: 211px;
+	height: 60px;
+	margin-top: 10px;
+}
+/*******************
+  CONTENT STYLING
+*******************/
+
+#main-content {
 	width:850px;
 	margin:0px auto;
-	margin-top:80px;
-	font-family:verdana;
+	margin-top: 30px;
+	font-family: 'Open Sans', sans-serif;
+	border: 1px solid;
+	border-color: #f2f1f0;
+	border-radius: 25px;
 }
 
-.imagelink{
+/*******************
+  PRODUCT STYLING
+*******************/
+
+.imagelink {
 	display:block;
 	background:url(../resources/images/comprar.jpg);
 	width: 180px;
 	height: 26px;
 }
 
-.imagelink:hover{
+.imagelink:hover {
 	display:block;
 	background:url(../resources/images/comprar2.jpg);
 	width: 180px;
 	height: 26px
 }
 
-
-#linha{
+#linha {
 	width="800";
-	
 	margin-left: auto ;
  	margin-right: auto ;
 }
 
+/*
+.titleForm {
+	font-size: 18pt;
+	font-family: 'Open Sans', sans-serif;
+}
+
+.loginForm {
+	margin: 0 auto;
+	width: 500px;
+	float: left;
+	left: 10px;
+	position: relative;
+}
+*/
 
 
 
+
+
+/* CREDITOS */
+#creditos{
+font-family: 'Montserrat Alternates', sans-serif;
+font-size: "25px";
+font-weight: bold;}

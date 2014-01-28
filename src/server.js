@@ -53,20 +53,16 @@ function start(accountRepository, productRepository, port) {
 		});
 	});
 
-	app.get('/productList', function(request, response) {
-		fs.readFile(__dirname + '/product.htm', 
-			function (err, html) {
-			    if (err) {
-			    	console.log('erro');
-			        //throw err; 
-			        return;
-			    }       
-			    console.log('ok product');
-			    response.writeHeader(200, {"Content-Type": "application/json"});  
-			    response.write(html);  
-			    response.end();  
-		});
+	app.get('/product/all', function(request, response) {
+	       
+    	productRepository.allProducts(function (result) {
+    		console.log('ok product');
+    		response.writeHeader(200, {"Content-Type": "application/json"});  
+      		response.write(result);
+			response.end();
+    	});
 	});
+
 
 
 	app.post('/account/:id/transaction', function(request, response) {
