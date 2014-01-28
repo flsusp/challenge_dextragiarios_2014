@@ -22,7 +22,7 @@ function find(id) {
 			function(err, result) {
 				done();
 				if (err) {
-					console.log('sry', err);
+					console.log('sry');
 					call(callback, err);
 					return;
 				}
