@@ -1,3 +1,5 @@
+@import url(http://fonts.googleapis.com/css?family=Bree+Serif);
+
 body {
 	margin: 0;
 }
@@ -36,13 +38,15 @@ li {
 }
 
 #nav a {
-	font-family: verdana;
+	font-family: 'Bree Serif', verdana;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 	text-decoration: none;
-	color: #EDEDED;
+	color: #414848;
+	transition: all 0.5s ease 0s;
 }
 
 #nav a:hover {
-	color: #BDBDBD;
+	color: #a7b3b7;
 }
 
 #navigation {
@@ -63,7 +67,7 @@ li {
 }
 
 .subtitle {
-	color: #EDEDED;
+	color: #b2bec3;
 	font-family: verdana;
 	font-size: 15px;
 }
@@ -96,7 +100,6 @@ li {
 	border-top: 1px solid;
 	border-color: #f2f1f0;
 	background: rgba(65,72,72,0.75) url(../resources/images/header-background.png) repeat-x center;
-	/*display: none;*/
 	font-family: 'Open Sans', sans-serif;
 	text-align: center;
 }
@@ -121,16 +124,16 @@ li {
 	padding: 0;
 	float: right;
 	position: relative;
-	width: 500px;
+	width: 550px;
 	height: 100px;
-	background: blue;
+	/*background: blue;*/
 }
 
 .right-header-top {
 	margin: 0;
 	padding: 0;
 	float: right;
-	width: 500px;
+	width: 550px;
 	height: 60px;
 	background: pink;
 }
@@ -139,7 +142,7 @@ li {
 	margin: 0;
 	padding: 0;
 	float: right;
-	width: 500px;
+	width: 550px;
 	height: 40px;
 	background: white;
 }
@@ -147,7 +150,7 @@ li {
 .logo-header {
 	margin: 0;
 	padding: 0;
-	width: 281px;
+	width: 211px;
 	height: 100px;
 	left: 10px;
 	color: #fff;
@@ -157,8 +160,9 @@ li {
 .logo-image {
 	margin: 0;
 	padding: 0;
-	width: 281px;
-	height: 80px;
+	width: 211px;
+	height: 60px;
+	margin-top: 25px;
 }
 /*******************
   CONTENT STYLING
