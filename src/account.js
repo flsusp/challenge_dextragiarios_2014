@@ -18,6 +18,8 @@ function find(id) {
 			query += 'INSERT INTO transfers(idAccount, relativeValue, idAnt) VALUES('+ id + ',' + value + ',' + max + ')';
 		}
 
+
+
 		client.query(query, 
 			function(err, result) {
 				done();
@@ -28,6 +30,10 @@ function find(id) {
 				}
 				call(callback, 'success');
 			});
+	}
+
+	var teste = function() {
+		
 	}
 
 	var readBalance = function(client, callback) {
