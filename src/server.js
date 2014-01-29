@@ -56,10 +56,10 @@ function start(accountRepository, productRepository, port) {
 	app.get('/product/all', function(request, response) {
 	       
     	productRepository.allProducts(function (result) {
-    		console.log('ok product');
+    		console.log('ok product all');
     		response.writeHeader(200, {"Content-Type": "application/json"});  
-      		response.write(result);
-			response.end();
+      		response.write(JSON.stringify(result));
+			response.end();  
     	});
 	});
 

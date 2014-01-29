@@ -19,12 +19,11 @@ function allProducts(callback) {
 				if (err) {
 		           	return console.log('error ', err);
 				}
-				console.log("entrou " + result);
+				console.log("entrou");
 				call(callback, result.rows);
 			});
 		});
 	}
-
 
 
 function find(id) {
@@ -110,9 +109,5 @@ function find(id) {
 	return product;
 }
 
-
-
-
-
-
+exports.allProducts = allProducts;
 exports.find = find;
