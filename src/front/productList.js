@@ -1,15 +1,15 @@
 $(function(){
-	$.getJSON(
-    	"/product/all", function(data){
-    		$.each(data, function(i,item){
-    			$("#main-content").append( 
-    				'<div class="product">'
-						+ '<img src="/resources/images/' + item.url + '"> '
-						+ '<br>'+ item.name
-						+ '<br><a class="imageLink" href="/product/'+ item.id +'/purchase"></a>'
-					+ '</div>'
-   				);
-   				console.log("item:",item);
-    		});
+	console.log('what?');
+	$.ajax("/productsTemplate.xml", {
+		method : 'GET',
+		success : function(xml) {
+			console.log('xml', xml);
+			var fnTemplate = doT.template(xml);
+			console.log('template', fnTemplate);
+
+			$.getJSON("/product/all", function(data) {
+	    		$('#main-content').append(fnTemplate(data));
+			});
+		}
 	});
 });
