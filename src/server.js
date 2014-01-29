@@ -37,7 +37,7 @@ function start(accountRepository, productRepository, port) {
 		});
 	});
 
-
+	//exibe a lista de produtos
 	app.get('/product', function(request, response) {
 		fs.readFile(__dirname + '/product.htm', 
 			function (err, html) {
@@ -45,17 +45,16 @@ function start(accountRepository, productRepository, port) {
 			    	console.log('erro');
 			        //throw err; 
 			        return;
-			    }       
-			    console.log('ok product');
+			    } 
 			    response.writeHeader(200, {"Content-Type": "text/html"});  
 			    response.write(html);  
 			    response.end();  
 		});
 	});
 
+	//retorna o JSon
 	app.get('/product/all', function(request, response) {
-	       
-    	productRepository.allProducts(function (result) {
+	    productRepository.allProducts(function (result) {
     		console.log('ok product all');
     		response.writeHeader(200, {"Content-Type": "application/json"});  
       		response.write(JSON.stringify(result));
