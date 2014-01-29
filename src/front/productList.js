@@ -1,11 +1,11 @@
 $(function(){
 	console.log('what?');
-	$.ajax("/productsTemplate.xml", {
+	$.ajax("/productsTemplate.txt", {
 		method : 'GET',
-		success : function(xml) {
-			console.log('xml', xml);
-			var fnTemplate = doT.template(xml);
-			console.log('template', fnTemplate);
+		success : function(template) {
+			console.log('template', template);
+			var fnTemplate = doT.template(template);
+			console.log('fnTemplate', fnTemplate);
 
 			$.getJSON("/product/all", function(data) {
 	    		$('#main-content').append(fnTemplate(data));
