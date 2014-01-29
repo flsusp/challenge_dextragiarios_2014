@@ -123,4 +123,24 @@ vows.describe('Given an account with balance of 11')/*.addBatch({
         		assert.equal (topic, 21);
 		}
 	}
+}).addBatch({
+	'when debiting 12': {
+       	topic: function () {
+			var c = this.callback;
+
+			loadData.createAccountWithBalance(11, 'asd', function(id) {
+				account.find(id).transact(-12, function() {
+					account.find(id).consolidar(function() {
+						account.find(id).balance(function(balance) {
+							c(null, balance);
+						});
+					});
+				});
+			});
+		},
+
+		'then balance equals 11': function (topic) {
+        		assert.equal (topic, 11);
+		}
+	}
 }).export(module);
