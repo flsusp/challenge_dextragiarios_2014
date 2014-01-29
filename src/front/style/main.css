@@ -294,6 +294,17 @@ li {
  	margin-right: auto ;
 }
 
+.product {
+	height: 300px;
+	width: 25%;
+	float: left;
+}
+
+.product img {
+	width: 180px;
+	height: 180px;
+}
+
 /*
 .titleForm {
 	font-size: 18pt;

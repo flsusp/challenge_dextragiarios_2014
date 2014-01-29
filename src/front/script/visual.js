@@ -27,4 +27,4 @@ $(document).ready(function(){
     $("#nav-busca").focusout(function() {
     	$("#nav-busca").val(nav);
     });
-})
+});
