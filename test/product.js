@@ -1,4 +1,4 @@
-var pg = require('pg');
+/*var pg = require('pg');
 
 var conString = require("./../src/config").config().get('conString');
 
@@ -76,7 +76,7 @@ vows.describe('Given a product with price of 3 and stock of 20').addBatch({
 	'when purchasing 9 from the product stock': {
        	topic: function () {
 			var c = this.callback;
-			loadData.createAccountWithBalance(11, 'asd', function(accountId) {
+			loadData.createAccountWithBalance(28, 'asd', function(accountId) {
 				loadData.createProductWithStock(3, 20, function(id) {
 					product.find(id).purchase(accountId, 9, function() {
 						product.find(id).stock(function(stock) {
@@ -108,17 +108,18 @@ vows.describe('Given a product with price of 3 and stock of 20').addBatch({
 
 		'then stock still equals 20': function (topic) {
         		assert.equal (topic, 20);
+
 		}
 	}
 }).addBatch({
-	'when purchasing 8, one by one in parallel, from the product stock': {
+
+	'when purchasing 10, one by one in parallel, from the product stock with an account containing 11 credits': {
        	topic: function () {
 			var c = this.callback;
-
 			loadData.createAccountWithBalance(11, 'asd', function(accountId) {
 				loadData.createProductWithStock(3, 20, function(id) {
 					var functions = [];
-					for (var i = 0; i < 8; i++) {
+					for (var i = 0; i < 10; i++) {
 						functions.push(function(callback) {
 							product.find(id).purchase(accountId, 1, function() {
 								callback();
@@ -135,8 +136,8 @@ vows.describe('Given a product with price of 3 and stock of 20').addBatch({
 			});
 		},
 
-		'then stock equals 12': function (topic) {
-        		assert.equal (topic, 12);
+		'then stock equals 17': function (topic) {
+        		assert.equal (topic, 17);
 		}
 	}
-}).export(module);
+}).export(module);*/

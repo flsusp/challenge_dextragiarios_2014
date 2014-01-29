@@ -16,8 +16,7 @@ loadData.createAccountWithBalance = function (balance, nome, callback) {
         }
 		client.query('INSERT INTO account (nome) VALUES (\''+nome +'\') RETURNING id', function(err, result) {
 			done();
-
-			client.query('INSERT INTO transfers(idAccount, relativeValue) VALUES (' + result.rows[0].id + ', ' + balance + ')', function(errr, resultt) {
+			client.query('INSERT INTO transfers(idAccount, relativeValue, consolidada) VALUES (' + result.rows[0].id + ', ' + balance +', true)', function(errr, resultt) {
 				done();
 				//callback(null);
 				return;
@@ -27,7 +26,7 @@ loadData.createAccountWithBalance = function (balance, nome, callback) {
 	});
 };
 
-vows.describe('Given an account with balance of 11').addBatch({
+vows.describe('Given an account with balance of 11')/*.addBatch({
 	'when read the account balance': {
        	topic: function () {
 			var c = this.callback;
@@ -93,7 +92,7 @@ vows.describe('Given an account with balance of 11').addBatch({
         		assert.equal (topic, 11);
 		}
 	}
-}).addBatch({
+})*/.addBatch({
 	'when crediting 10, one by one in parallel, at the account balance': {
        	topic: function () {
 			var c = this.callback;
@@ -109,10 +108,14 @@ vows.describe('Given an account with balance of 11').addBatch({
 				}
 
 				async.parallel(functions, function() {
-					account.find(id).balance(function(balance) {
-						c(null, balance);
+					console.log('iddd', id);
+					account.find(id).consolidar(function(){
+						account.find(id).balance(function(balance) {
+							c(null, balance);
+						});
 					});
 				});
+
 			});
 		},
 
