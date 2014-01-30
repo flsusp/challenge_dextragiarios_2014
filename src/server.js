@@ -29,8 +29,7 @@ function start(accountRepository, productRepository, port) {
 			    	console.log('erro');
 			        //throw err; 
 			        return;
-			    }       
-			    console.log('ok');
+			    }
 			    response.writeHeader(200, {"Content-Type": "text/html"});  
 			    response.write(html);  
 			    response.end();  
@@ -55,14 +54,25 @@ function start(accountRepository, productRepository, port) {
 	//retorna o JSon
 	app.get('/product/all', function(request, response) {
 	    productRepository.allProducts(function (result) {
-    		console.log('ok product all');
     		response.writeHeader(200, {"Content-Type": "application/json"});  
       		response.write(JSON.stringify(result));
 			response.end();  
     	});
 	});
 
-
+	app.get('/product/:id', function(request, response) {
+	    fs.readFile(__dirname + '/product.htm', 
+			function (err, html) {
+			    if (err) {
+			    	console.log('erro');
+			        //throw err; 
+			        return;
+			    } 
+			    response.writeHeader(200, {"Content-Type": "text/html"});  
+			    response.write(html);  
+			    response.end();  
+		});
+	});
 
 	app.post('/account/:id/transaction', function(request, response) {
 		console.log('/account/' + request.params.id[0] + '/transaction');

@@ -1,14 +1,16 @@
 $(function(){
-	console.log('what?');
-	$.ajax("/productsTemplate.txt", {
+	$.ajax("/templates/productsTemplate.txt", {
 		method : 'GET',
 		success : function(template) {
-			console.log('template', template);
 			var fnTemplate = doT.template(template);
-			console.log('fnTemplate', fnTemplate);
 
 			$.getJSON("/product/all", function(data) {
 	    		$('#main-content').append(fnTemplate(data));
+	    		$('.product img').click(function(evt){
+	    			var el = evt.toElement;
+	    			console.log('img click', el);
+	    			showDetails(el.dataset.productid);
+	    		});
 			});
 		}
 	});

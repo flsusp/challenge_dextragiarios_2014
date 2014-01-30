@@ -1,0 +1,6 @@
+{{~it :value:index}}
+	<div class="product">
+		<a><img src="/resources/images/{{=value.url}}" data-productId="{{=value.id}}"/></a>
+		<br/>{{=value.name}}
+	</div>
+{{~}}
