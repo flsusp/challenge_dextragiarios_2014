@@ -34,7 +34,7 @@ li {
     border: 1px solid #cfcfcf; 
     color: #9a9aa5; 
     font-size: 15px; 
-    padding-left: 5px; 
+    padding-left: 3px; 
     float: left; 
     line-height: 35px;
     border-radius: 5px 0px 0px 5px;
@@ -139,7 +139,7 @@ li {
 .topo-busca{
 	padding: 0px;
 	margin-top: 3px;
-	margin-left: 75px;
+	margin-left: 10px;
     width: 450px; 
     height: 40px; 
     float: left; 
@@ -258,18 +258,10 @@ li {
 /*******************
   CONTENT STYLING
 *******************/
-a {
-	color: #000;
-	text-decoration:none;
-}
 a:hover{
 
-	color: #ffffff;
-	opacity:0.8;
-}
-
-a:visited {
-	color: #000;
+color: #ffffff;
+opacity:0.8;
 }
 
 #main-content {
@@ -284,15 +276,18 @@ a:visited {
 
 
 #sub-content {
-	width:850px;
-	margin:0px auto;
+	width: 850px;
+	margin: 0 auto;
 	margin-top: 30px;
 	font-family: 'Open Sans', sans-serif;
 	font-size: 14px;
-	border: 1px solid;
-	border-color: #f2f1f0;
+}
+
+.product-content {
+	border: 1px solid #f2f1f0;
 	border-radius: 25px;
 	background-color: #ffffff;
+	float: left;
 }
 
 /*******************
@@ -322,7 +317,6 @@ img{
 	background:url(../resources/images/comprar.jpg);
 	width: 180px;
 	height: 26px;
-	margin: 50px 0px 50px 0px;
 }
 
 #imagelink:hover {
@@ -342,6 +336,19 @@ img{
 	margin-left: 25%;
 	line-height:2;
 }
+
+.product-detail {
+	width: 850px;
+	margin: 0 auto;
+	margin-top: 30px;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 14px;
+	border: 1px solid #f2f1f0;
+	border-radius: 25px;
+	background-color: #ffffff;
+}
+
+
 .product {
 	height: 300px;
 	width: 25%;
@@ -356,6 +363,7 @@ img{
 /* CREDITOS */
 .balance {
 	margin:0  auto;
+	margin-top: 3px;
 	border: 1px solid #dedede;
 	background: #dfe9ec;
 	box-shadow: 0px 1px 5px #5E5E5E;
@@ -364,7 +372,15 @@ img{
 	font-family: 'Montserrat Alternates', sans-serif;
 	font-size: 16pt;
 	font-weight: bold;
-	height: 30px;
-	width: 50px;
+	height: 34px;
+	
+	vertical-align: middle;
+	float: left;
+}
+
+.balance-content {
+	margin-left: 5px;
+	margin-right: 5px;
+	margin-top: 4px;
 	text-align: center;
 }

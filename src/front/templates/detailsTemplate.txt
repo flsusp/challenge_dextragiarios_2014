@@ -1,9 +1,11 @@
-<div id ="productDetails">
-		<a href="/product"> << voltar</a>
-		<img class="imgDetalhes" src="/resources/images/{{=it.url}}"> <br />
-		<div><b>{{=it.name}}</b> </div>
-		<div><b>Descrição: </b>{{=it.description}} </div>
-		<div> <b>R$</b>{{=it.price}}</div>
-		<div><b>Qtd.:</b> <input type="text" name="qtd" class="inputBorder" /> </div>
-		<div><input type="button" id="imageLink" class="comprar"> 
+<div class="product-detail">
+	<div id ="productDetails">
+			<a href="/product"> << voltar</a>
+			<img class="imgDetalhes" src="/resources/images/{{=it.url}}"> <br />
+			<div><b>{{=it.name}}</b> </div>
+			<div><b>Descrição: </b>{{=it.description}} </div>
+			<div> <b>R$</b>{{=it.price}}</div>
+			<div><b>Qtd.:</b> <input type="text" name="qtd" class="inputBorder" /> </div>
+			<div><input type="button" id="imageLink" class="comprar"> 
+	</div>
 </div>

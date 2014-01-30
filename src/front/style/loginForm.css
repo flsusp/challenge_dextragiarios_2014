@@ -38,6 +38,7 @@ body {
 	width: 300px;
 	height: 400px;
 	margin: 70px auto;
+	
 }
 
 .gradient {
@@ -169,7 +170,7 @@ CONTENT
 }
 
 .user-icon {
-	top:148.5px;
+	top:130px;
 	background: rgba(65,72,72,0.75) url(../resources/images/user-icon.png) no-repeat center;	
 }
 
