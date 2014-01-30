@@ -270,9 +270,26 @@ li {
 	border-radius: 25px;
 }
 
+
+#sub-content {
+	width:850px;
+	margin:0px auto;
+	margin-top: 30px;
+	font-family: 'Open Sans', sans-serif;
+	border: 1px solid;
+	border-color: #f2f1f0;
+	border-radius: 25px;
+	background-color: #ffffff;
+}
+
 /*******************
   PRODUCT STYLING
 *******************/
+.imgDetalhes {
+	display: block;
+	width: 300;
+	height: 300;
+}
 
 .imagelink {
 	display:block;
@@ -294,6 +311,9 @@ li {
  	margin-right: auto ;
 }
 
+#productDetails{
+	margin-left: 25%;
+}
 .product {
 	height: 300px;
 	width: 25%;

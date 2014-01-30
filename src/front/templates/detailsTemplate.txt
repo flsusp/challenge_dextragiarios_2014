@@ -1,0 +1,10 @@
+<div id ="productDetails">
+		<img class="imgDetalhes" src="/resources/images/{{=it.url}}"> <br />
+		{{=it.name}} <br />
+		{{=it.description}} <br />
+		{{=it.price}} <br />
+		Qtd.: <input type="text" name="qtd" /> <br />
+		<input type="button" value="Comprar" onclick=""> <br />
+		<input type="button" value="Voltar" onclick="window.location.href = '/product'"> 
+		<br /><br /><br /><br />
+</div>

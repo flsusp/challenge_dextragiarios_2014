@@ -61,17 +61,11 @@ function start(accountRepository, productRepository, port) {
 	});
 
 	app.get('/product/:id', function(request, response) {
-	    fs.readFile(__dirname + '/product.htm', 
-			function (err, html) {
-			    if (err) {
-			    	console.log('erro');
-			        //throw err; 
-			        return;
-			    } 
-			    response.writeHeader(200, {"Content-Type": "text/html"});  
-			    response.write(html);  
-			    response.end();  
-		});
+	    productRepository.getProduct(parseInt(request.params.id[0]), function (result) {
+    		response.writeHeader(200, {"Content-Type": "application/json"});  
+      		response.write(JSON.stringify(result));
+			response.end();  
+    	});	
 	});
 
 	app.post('/account/:id/transaction', function(request, response) {

@@ -19,12 +19,29 @@ function allProducts(callback) {
 				if (err) {
 		           	return console.log('error ', err);
 				}
-				console.log("entrou");
 				call(callback, result.rows);
 			});
 		});
-	}
+}
 
+function getProduct(id, callback) {
+		pg.connect(conString, function(err, client, done) {
+			if (err) {
+				throw err;
+			}
+			client.query('SELECT * FROM product WHERE id='+id, function(err, result) {
+				done();
+				if (err) {
+		           	return console.log('error ', err);
+				}
+				if (result.rows.length == 1) {
+					call(callback, result.rows[0]);
+				} else {
+					call(callback, {"status": "error"});
+				}
+			});
+		});
+}
 
 function find(id) {
 	var product = {};
@@ -111,3 +128,4 @@ function find(id) {
 
 exports.allProducts = allProducts;
 exports.find = find;
+exports.getProduct = getProduct;

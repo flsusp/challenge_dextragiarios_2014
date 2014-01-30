@@ -5,11 +5,9 @@ $(function(){
 			var fnTemplate = doT.template(template);
 
 			$.getJSON("/product/all", function(data) {
-	    		$('#main-content').append(fnTemplate(data));
+	    		$('#sub-content').append(fnTemplate(data));
 	    		$('.product img').click(function(evt){
-	    			var el = evt.toElement;
-	    			console.log('img click', el);
-	    			showDetails(el.dataset.productid);
+	    			showDetails(this.dataset['productId']);
 	    		});
 			});
 		}
