@@ -5,6 +5,7 @@ $(function(){
 			var fnTemplate = doT.template(template);
 			$.getJSON("/account/"+sessionStorage.getItem("id")+"/balance/", function(data) {
 	    		$('.right-header-bottom').append(fnTemplate(data));	    		
+	    		$('.balance-nav').append(fnTemplate(data));
 			});
 		}
 	});

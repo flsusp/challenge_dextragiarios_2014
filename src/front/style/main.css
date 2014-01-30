@@ -31,8 +31,8 @@ li {
 .nav-busca .nav-busca-campo {
     width: 400px; 
     height: 30px; 
-    border: 1px solid #cfcfcf; 
-    color: #9a9aa5; 
+    border: 1px solid #cfcfcf;
+     color: #9a9aa5; 
     font-size: 15px; 
     padding-left: 3px; 
     float: left; 
@@ -108,6 +108,18 @@ li {
 	margin-top: 7px;
 	list-style-type: none;
 	font-family: 'Open Sans', sans-serif;
+}
+
+.logo-nav {
+	margin-top: -5px;
+	margin-left: 5px;
+	width: 295px;
+	height: 40px;
+}
+
+.logo-nav img{
+	height: 30px;
+	width: 105px;
 }
 
 .title {
