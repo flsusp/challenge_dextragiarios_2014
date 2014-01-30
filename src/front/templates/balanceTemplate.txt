@@ -1,3 +1,5 @@
 <div class="balance">
-R${{=it.balance}}
+	<div class="balance-content">
+		R${{=it.balance}}
+	</div>
 </div>
