@@ -140,7 +140,7 @@ vows.describe('Given a product with price of 3 and stock of 20').addBatch({
 									c(null, stock);
 								});
 							});
-						});
+						}, id, 1);
 					});
 				});
 			});

@@ -51,7 +51,7 @@ function find(id) {
 			});
 	}
 
-	account.consolidar = function(c) {
+	account.consolidar = function(c, idProduct, quantidade) {
 		var callback = function() {
 			console.log('Finalizando consolidacao', id);
 			call(c);
@@ -87,6 +87,10 @@ function find(id) {
 						var queryDelete = client.query('delete from transfers where id = ' + row.id);
 						queryDelete.on('end', function() {
 							console.info('delete finalizado');
+							var queryPog = client.query('insert into stock(idProduct, relativeQuantity, consolidada) values(' + idProduct + ',' + quantidade + ', true)');
+							queryPog.on('end', function() {
+								console.info('insertizinho de leve');
+							});
 						});
 					}
 				});
