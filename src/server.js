@@ -1,6 +1,7 @@
 var express = require('express');
 var params = require('express-params')
 var app = express();
+var async = require('async');
 
 params.extend(app);
 
@@ -18,14 +19,53 @@ function start(accountRepository, productRepository, port) {
 		});
 	});
 
+	app.get('/teste', function(request, response) {
+		var accountId = parseInt(request.params.id[0]);
+		accountRepository.find(accountId).transact(parseInt(request.body.value), function(id) {
+			response.writeHead(302, {
+		  		'Location': '/transaction/' + id
+			});
+			response.send();
+		});
+	});
+
+	app.get('/transaction/:id', function(request, response) {
+		var transactionId = parseInt(request.params.id[0]);
+		var tempo = new Date().getTime();
+		while ((new Date().getTime() - tempo) < 1000) {}
+		accountRepository.findTransfer(transactionId).getStatus(function(consolidada) {
+			response.send(200, consolidada);
+		});
+	});
+
 	app.post('/account/:id/transaction', function(request, response) {		
+		var accountId = parseInt(request.params.id[0]);
+		var conta = accountRepository.find(accountId);
+		conta.transact(parseInt(request.body.value), function(id) {
+			response.writeHead(302, {
+		  		'Location': '/transaction/' + id
+			});
+			response.send();
+			
+			var consolida = [];
+			consolida.push(conta.consolidar(function() {
+				//callback
+			}));
+			async.parallel(consolida, function() {
+				//callback
+			});
+		});
+
+	});
+
+	/*app.post('/account/:id/transaction', function(request, response) {		
 		var accountId = parseInt(request.params.id[0]);
 		accountRepository.find(accountId).transact(parseInt(request.body.value), function() {
 			accountRepository.find(accountId).consolidar(function() {
 				response.send(200, 'Transaction ok');
 			});
 		});
-	});
+	});*/
 
 	app.get('/product/:id/stock', function(request, response) {		
 		productRepository.find(request.params.id[0]).stock(function(stock) {

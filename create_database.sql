@@ -1,13 +1,13 @@
-'create database challenge owner challenge_user;
+create database challenge owner challenge_user;
 
-'
+
 
 drop table transfers;
-'drop table stock;
-'drop table product;
-'drop table account;
+drop table stock;
+drop table product;
+drop table account;
 
-'create role challenge_user with login unencrypted password '123mudar';
+create role challenge_user with login unencrypted password '123mudar';
 
 create table account (id serial primary key, nome varchar(30));
 
@@ -15,7 +15,7 @@ create table transfers (id serial primary key, idAccount int references account(
 
 create table product (id serial primary key, price decimal not null);
 
-create table stock (id serial primary key, idProduct int references product(id), relativeQuantity bigint not null default 0, idAnt int unique);
+create table stock (id serial primary key, idProduct int references product(id), relativeQuantity bigint not null default 0, consolidada boolean default false);
 
 <<<<<<< HEAD
 drop table transfers;drop table stock;drop table product;drop table account;

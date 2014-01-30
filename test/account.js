@@ -1,4 +1,4 @@
-var pg = require('pg');
+/*var pg = require('pg');
 
 var conString = require("./../src/config").config().get('conString');
 
@@ -26,7 +26,7 @@ loadData.createAccountWithBalance = function (balance, nome, callback) {
 	});
 };
 
-vows.describe('Given an account with balance of 11')/*.addBatch({
+vows.describe('Given an account with balance of 11').addBatch({
 	'when read the account balance': {
        	topic: function () {
 			var c = this.callback;
@@ -47,8 +47,10 @@ vows.describe('Given an account with balance of 11')/*.addBatch({
 			var c = this.callback;
 			loadData.createAccountWithBalance(11, 'asd', function(id) {
 				account.find(id).transact(+10, function() {
-					account.find(id).balance(function(balance) {
-						c(null, balance);
+					account.find(id).consolidar(function(){
+						account.find(id).balance(function(balance) {
+							c(null, balance);
+						});
 					});
 				});
 			});
@@ -64,8 +66,10 @@ vows.describe('Given an account with balance of 11')/*.addBatch({
 			var c = this.callback;
 			loadData.createAccountWithBalance(11, 'asd', function(id) {
 				account.find(id).transact(-10, function() {
-					account.find(id).balance(function(balance) {
-						c(null, balance);
+					account.find(id).consolidar(function(){
+						account.find(id).balance(function(balance) {
+							c(null, balance);
+						});
 					});
 				});
 			});
@@ -92,7 +96,7 @@ vows.describe('Given an account with balance of 11')/*.addBatch({
         		assert.equal (topic, 11);
 		}
 	}
-})*/.addBatch({
+}).addBatch({
 	'when crediting 10, one by one in parallel, at the account balance': {
        	topic: function () {
 			var c = this.callback;
@@ -108,7 +112,6 @@ vows.describe('Given an account with balance of 11')/*.addBatch({
 				}
 
 				async.parallel(functions, function() {
-					console.log('iddd', id);
 					account.find(id).consolidar(function(){
 						account.find(id).balance(function(balance) {
 							c(null, balance);
@@ -144,3 +147,4 @@ vows.describe('Given an account with balance of 11')/*.addBatch({
 		}
 	}
 }).export(module);
+*/

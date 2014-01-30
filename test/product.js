@@ -1,8 +1,9 @@
-/*var pg = require('pg');
+var pg = require('pg');
 
 var conString = require("./../src/config").config().get('conString');
 
 var product = require("./../src/product");
+var account = require("./../src/account");
 
 var vows = require('vows'),
 	assert = require('assert'),
@@ -17,7 +18,7 @@ loadData.createProductWithStock = function (price, stock, callback) {
         }        
 		client.query('INSERT INTO product (price) VALUES (' + price + ') RETURNING id', function(err, result) {
 			done();			
-			client.query('INSERT INTO stock (idProduct, relativeQuantity) VALUES (' + result.rows[0].id + ',' + stock + ')', function(errr, resultt) {
+			client.query('INSERT INTO stock (idProduct, relativeQuantity, consolidada) VALUES (' + result.rows[0].id + ',' + stock + ', true)', function(errr, resultt) {
 				done();				
 				callback(result.rows[0].id);				
 			});			
@@ -32,7 +33,7 @@ loadData.createAccountWithBalance = function (balance, nome, callback) {
         }        
 		client.query('INSERT INTO account (nome) VALUES (\''+nome +'\') RETURNING id', function(err, result) {
 			done();			
-			client.query('INSERT INTO transfers(idAccount, relativeValue) VALUES (' + result.rows[0].id + ', ' + balance + ')', function(errr, resultt) {
+			client.query('INSERT INTO transfers(idAccount, relativeValue, consolidada) VALUES (' + result.rows[0].id + ', ' + balance + ', true)', function(errr, resultt) {
 				done();				
 				callback(result.rows[0].id);
 			});
@@ -61,8 +62,10 @@ vows.describe('Given a product with price of 3 and stock of 20').addBatch({
 			var c = this.callback;
 			loadData.createProductWithStock(3, 20, function(id) {
 				product.find(id).add(12, function() {
-					product.find(id).stock(function(stock) {
-						c(null, stock);
+					product.find(id).consolidar(function(){
+						product.find(id).stock(function(stock) {
+							c(null, stock);
+						});
 					});
 				});
 			});
@@ -79,8 +82,10 @@ vows.describe('Given a product with price of 3 and stock of 20').addBatch({
 			loadData.createAccountWithBalance(28, 'asd', function(accountId) {
 				loadData.createProductWithStock(3, 20, function(id) {
 					product.find(id).purchase(accountId, 9, function() {
-						product.find(id).stock(function(stock) {
-							c(null, stock);
+						product.find(id).consolidar(function(){
+							product.find(id).stock(function(stock) {
+								c(null, stock);
+							});
 						});
 					});
 				});
@@ -98,8 +103,10 @@ vows.describe('Given a product with price of 3 and stock of 20').addBatch({
 			loadData.createAccountWithBalance(11, 'asd', function(accountId) {
 				loadData.createProductWithStock(3, 20, function(id) {
 					product.find(id).purchase(accountId, 22, function() {
-						product.find(id).stock(function(stock) {
-							c(null, stock);
+						product.find(id).consolidar(function(){
+							product.find(id).stock(function(stock) {
+								c(null, stock);
+							});
 						});
 					});
 				});
@@ -112,7 +119,6 @@ vows.describe('Given a product with price of 3 and stock of 20').addBatch({
 		}
 	}
 }).addBatch({
-
 	'when purchasing 10, one by one in parallel, from the product stock with an account containing 11 credits': {
        	topic: function () {
 			var c = this.callback;
@@ -128,8 +134,12 @@ vows.describe('Given a product with price of 3 and stock of 20').addBatch({
 					}
 					
 					async.parallel(functions, function() {
-						product.find(id).stock(function(stock) {
-							c(null, stock);
+						account.find(accountId).consolidar(function(){
+							product.find(id).consolidar(function(){
+								product.find(id).stock(function(stock) {
+									c(null, stock);
+								});
+							});
 						});
 					});
 				});
@@ -140,4 +150,4 @@ vows.describe('Given a product with price of 3 and stock of 20').addBatch({
         		assert.equal (topic, 17);
 		}
 	}
-}).export(module);*/
+}).export(module);

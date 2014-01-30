@@ -1,36 +1,62 @@
 var pg = require('pg'); 
 var nconf = require('nconf');
 
-var async = require('async');
-
 var conString = require("./config").config().get('conString');
 var call = require("./callback").call;
 
 var client = new pg.Client(conString);
+
+function findTransfer(id) {
+	var transaction = {};
+	transaction.id = id;
+
+	transaction.getStatus = function(callback) {
+		pg.connect(conString, function(err, client, done) {
+			if (err) {
+				console.log('error fetching client from pool', err);
+				call(callback);
+			   	return;
+			}
+			client.query('select consolidada from transfers where id = ' + id, 
+				function(err, result) {
+					done();
+					if (err) {
+						console.log('ERRO AO SELECIONAR');
+						return call(callback);
+					}
+					if (result.rows.length <= 0) {
+						call(callback, false);
+					} else {
+						call(callback, result.rows[0].consolidada);
+					}
+				});
+		});
+	}
+	return transaction;
+}
 
 function find(id) {
 	var account = {};
 	account.id = id;
 
 	account.addValue = function(value, client, done, callback) {
-		client.query('insert into transfers(idAccount, relativeValue) VALUES('+ id + ',' + value + ')', 
+		client.query('insert into transfers(idAccount, relativeValue) VALUES('+ id + ',' + value + ') RETURNING ID', 
 			function(err, result) {
 				done();
 				if (err) {
 					console.log('ERRO AO INSERIR');
-					return;
+					return call(callback, null, true);
 				}
-				call(callback);
+				call(callback, result.rows[0].id);
 			});
 	}
 
 	account.consolidar = function(c) {
-		var t = new Date().getTime();
 		var callback = function() {
 			console.log('Finalizando consolidacao', id);
 			call(c);
 		}
-		console.log('Iniciando consolidacao', id, t);
+		console.log('Iniciando consolidacao', id);
 		pg.connect(conString, function(err, client, done) {
 			if (err) {
 				console.log('error fetching client from pool', err);
@@ -48,7 +74,6 @@ function find(id) {
 					client.removeListener('drain', drain);
 				}
 				client.on('drain', drain);
-
 				var query = client.query('select id, relativeValue from transfers where idAccount=' + id + ' AND consolidada = false ORDER BY id ASC');
 				query.on('row', function(row) {
 					console.log('consolida', row.id, row.relativevalue, saldo);
@@ -66,55 +91,6 @@ function find(id) {
 					}
 				});
 			});
-
-
-/*			client.query('select id, relativeValue from transfers where idAccount=' + id + ' AND consolidada = false ORDER BY id ASC',
-				function(err, result) {
-					if (err) {
-						console.log('ERRO AO CONSOLIDAR', err);
-						return;
-					}
-					
-					readBalance(client, function(erro, saldo) {
-						var consolida = function(saldoAtual, i, max) {
-							console.log('consolida', saldoAtual, i, max, result.rows[i].relativevalue, result.rows[i].id);
-							var relative = parseInt(saldoAtual) + parseInt(result.rows[i].relativevalue);
-							if (relative >= 0) {
-								client.query('UPDATE transfers set consolidada = true WHERE id = ' + result.rows[i].id + ' AND consolidada = false', 
-									function(errr, resultt) {
-										if (errr) {
-											console.log('ERRO NO UPDATE');
-											return;
-										}
-										if (i == max) {
-											console.log('done', t);
-											done();
-											call(callback, 'success');
-										} else {
-											consolida(relative, i + 1, max);
-										}
-									});
-							} else {
-								client.query('delete from transfers where id = ' + result.rows[i].id,
-									function(err, result) {
-										done();
-										if (err) {
-											console.log('ERRO AO DELETAR', err);
-											return;
-										}
-										console.info('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<DELETOU>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-										call(callback, 'success');
-									});
-							}
-						}
-
-						if (result.rows.length > 0) {
-							consolida(saldo, 0, result.rows.length - 1);
-						}
-
-					});
-				});
-*/
 		});
 	}
 
@@ -123,7 +99,7 @@ function find(id) {
 		pg.connect(conString, function(err, client, done) {
 			if (err) {
 				console.log('error fetching client from pool', err);
-				call(callback, true);
+				call(callback, null, true);
 		      	return;
 			}
 			account.addValue(value, client, done, callback);
@@ -172,3 +148,4 @@ function find(id) {
 }
 
 exports.find = find;
+exports.findTransfer = findTransfer;
