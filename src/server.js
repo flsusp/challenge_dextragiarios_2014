@@ -88,7 +88,7 @@ function start(accountRepository, productRepository, port) {
 
 	app.post('/product/:id/purchase', function(request, response) {
 		console.log('/product/' + request.params.id[0] + '/purchase');
-		productRepository.find(request.params.id[0]).purchase(request.body.accountId, 1, function(status) {
+		productRepository.find(request.params.id[0]).purchase(parseInt(request.body.accountId), 1, function(status) {
 			if (status == 'success') {
 				response.send(200, status);
 			}

@@ -48,9 +48,9 @@ function find(id) {
 	product.id = id;
 	product.purchase = function(accountId, quantity, callback) {
 		product.price(function(price) {
-			integration.debitFee(price, function(extra) {
-				account.find(accountId).transact(-(extra + price), function() {
-					updateStock(-quantity, callback);	
+			integration.debitFee(price, function(extra) {				
+				account.find(accountId).transact(-(extra + price), function() {					
+					updateStock(-quantity, callback);						
 				});
 			});
 		});
@@ -93,7 +93,7 @@ function find(id) {
 			client.query('SELECT stock FROM product WHERE id = ' + id, function(err, result) {
 				done();
 				if (err) {
-		           	return console.log('error fetching client from pool', err);
+					return console.log('error fetching client from pool', err);
 				}
 				if (result.rows.length == 0) {
 					call(callback, null);
@@ -108,19 +108,17 @@ function find(id) {
 			if (err) {
 				throw err;
 			}
-			var callback = function(err, result) {
+			client.query('SELECT price FROM product WHERE id = ' + id, function(err, result) {
 				done();
 				if (err) {
-		           	return console.log('error fetching client from pool', err);
+					return console.log('error fetching client from pool', err);
 				}
 				if (result.rows.length == 0) {
 					call(callback, null);
 				} else {
 					call(callback, parseFloat(result.rows[0].price));
 				}
-			}
-
-			client.query('SELECT price FROM product WHERE id = ' + id, callback);
+			});
 		});
 	}
 	return product;
