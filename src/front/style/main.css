@@ -353,27 +353,18 @@ img{
 	height: 180px;
 }
 
-/*
-.titleForm {
-	font-size: 18pt;
-	font-family: 'Open Sans', sans-serif;
-}
-
-.loginForm {
-	margin: 0 auto;
-	width: 500px;
-	float: left;
-	left: 10px;
-	position: relative;
-}
-*/
-
-
-
-
-
 /* CREDITOS */
-#creditos{
-font-family: 'Montserrat Alternates', sans-serif;
-font-size: "25px";
-font-weight: bold;}
+.balance {
+	margin:0  auto;
+	border: 1px solid #dedede;
+	background: #dfe9ec;
+	box-shadow: 0px 1px 5px #5E5E5E;
+	border-radius: 5px;
+	color: #242036; 
+	font-family: 'Montserrat Alternates', sans-serif;
+	font-size: 16pt;
+	font-weight: bold;
+	height: 30px;
+	width: 50px;
+	text-align: center;
+}
