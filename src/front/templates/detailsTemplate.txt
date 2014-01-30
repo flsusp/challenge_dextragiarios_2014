@@ -1,10 +1,9 @@
 <div id ="productDetails">
+		<a href="/product"> << voltar</a>
 		<img class="imgDetalhes" src="/resources/images/{{=it.url}}"> <br />
-		<div>{{=it.name}} </div>
-		<div>{{=it.description}} </div>
-		<div> R${{=it.price}}</div>
-		<div>Qtd.: <input type="text" name="qtd" class="inputBorder" /> </div>
+		<div><b>{{=it.name}}</b> </div>
+		<div><b>Descrição: </b>{{=it.description}} </div>
+		<div> <b>R$</b>{{=it.price}}</div>
+		<div><b>Qtd.:</b> <input type="text" name="qtd" class="inputBorder" /> </div>
 		<div><input type="button" id="imageLink" class="comprar"> 
-		<input type="button" value="Voltar" onclick="window.location.href = '/product'"> </div>
-		<br /><br /><br /><br />
 </div>
