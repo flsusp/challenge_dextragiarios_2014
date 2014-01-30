@@ -25,13 +25,6 @@ function start(accountRepository, productRepository, port) {
 		console.log('/account/' + request.params.id[0] + '/balance');
 		accountRepository.find(request.params.id[0]).balance(function(balance) {
 			returnJSON({balance : balance}, response);
-			/*if (balance === null) {
-				response.send(404);
-			} else {
-				response.writeHeader(200, {"Content-Type": "application/json"});  
-				response.write(JSON.stringify({balance : balance}));
-				response.end();
-			}*/
 		});
 	});
 
@@ -57,7 +50,7 @@ function start(accountRepository, productRepository, port) {
 			    	console.log('erro');
 			        //throw err; 
 			        return;
-			    } 
+			    }
 			    response.writeHeader(200, {"Content-Type": "text/html"});  
 			    response.write(html);  
 			    response.end();  
@@ -67,9 +60,7 @@ function start(accountRepository, productRepository, port) {
 	//retorna o JSon
 	app.get('/product/all', function(request, response) {
 	    productRepository.allProducts(function (result) {
-    		response.writeHeader(200, {"Content-Type": "application/json"});  
-      		response.write(JSON.stringify(result));
-			response.end();  
+	    	returnJSON(result, response);
     	});
 	});
 
@@ -86,6 +77,17 @@ function start(accountRepository, productRepository, port) {
 		accountRepository.find(parseInt(request.params.id[0])).transact(parseInt(request.body.value), function() {
 			response.send(200, 'Transaction ok');
 		});
+	});
+
+	app.get('/account/:id', function(request, response) {
+		console.log('/account/' + request.params.id[0]);
+		accountRepository.validaLogin((parseInt(request.params.id[0])), function(result) {
+			response.writeHeader(200, {"Content-Type": "application/json"});  
+			response.write(JSON.stringify(result));
+			response.end();
+
+		});
+
 	});
 
 	app.get('/product/:id/stock', function(request, response) {

@@ -6,6 +6,22 @@ var call = require("./callback").call;
 
 var client = new pg.Client(conString);
 
+function validaLogin(id, callback) {
+	pg.connect(conString, function(err, client, done) {
+			if (err) {
+				throw err;
+			}
+			client.query('SELECT id FROM account WHERE id ='+id, function(err, result) {
+				done();
+				if (err) {
+		           	return console.log('error ', err);
+				}
+				call(callback, result.rows[0]);
+				
+			});
+		});
+}
+
 function find(id) {
 	var account = {};
 	account.id = id;
@@ -52,3 +68,4 @@ function find(id) {
 }
 
 exports.find = find;
+exports.validaLogin = validaLogin;

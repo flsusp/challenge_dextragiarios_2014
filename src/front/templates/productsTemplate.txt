@@ -1,6 +1,7 @@
 {{~it :value:index}}
 	<div class="product" style="text-align:center;">
 		<a href="#"><img src="/resources/images/{{=value.url}}" data-product-id="{{=value.id}}"/></a>
-		<br/>{{=value.name}}
+		<br/><br/>{{=value.name}}
+		<br/>R${{=value.price}}
 	</div>
 {{~}}
