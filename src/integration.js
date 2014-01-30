@@ -2,13 +2,13 @@ var call = require("./callback").call;
 
 function debitFee(value, callback) {
 	if (value < 5) {
-		call(callback, value * 0.15); // 15%
+		call(callback, 0.15); // 15%
 	} else if (value < 20) {
-		call(callback, value * 0.1);  // 10%
+		call(callback, 0.1);  // 10%
 	} else if (value < 500) {
-		call(callback, value * 0.07); // 7%
+		call(callback, 0.07); // 7%
 	} else {
-		call(callback, value * 0.05); // 5%
+		call(callback, 0.05); // 5%
 	}
 }
 exports.debitFee = debitFee;
