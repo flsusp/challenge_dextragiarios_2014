@@ -14,7 +14,7 @@ function find(id) {
 		value = parseInt(value);
 		pg.connect(conString, function(err, client, done) {
 			if (err) {
-	           	return console.log('error fetching client from pool', err);
+				return console.log('error fetching client from pool', err);
 			}
 			client.query('UPDATE account SET balance = balance + ' + value + ' WHERE id = ' + id + ' AND balance + ' + value + ' >= 0;', function(err, result) {
 				done();
@@ -38,7 +38,7 @@ function find(id) {
 			client.query('SELECT balance FROM account WHERE id = ' + id, function(err, result) {
 				done();
 				if (err) {
-		           	return console.log('error fetching client from pool', err);
+					return console.log('error fetching client from pool', err);
 				}
 				if (result.rows.length == 0) {
 					call(callback, null);

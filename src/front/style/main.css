@@ -210,7 +210,6 @@ li {
 	float: left;
 	height: 25px;
 	width: 100%;
-	background: cyan;
 }
 
 .right-header {
@@ -259,6 +258,11 @@ li {
 /*******************
   CONTENT STYLING
 *******************/
+a:hover{
+
+color: #ffffff;
+opacity:0.8;
+}
 
 #main-content {
 	width:850px;
@@ -276,6 +280,7 @@ li {
 	margin:0px auto;
 	margin-top: 30px;
 	font-family: 'Open Sans', sans-serif;
+	font-size: 14px;
 	border: 1px solid;
 	border-color: #f2f1f0;
 	border-radius: 25px;
@@ -285,20 +290,33 @@ li {
 /*******************
   PRODUCT STYLING
 *******************/
+img{
+ border-radius: 15px;
+
+}
+
 .imgDetalhes {
 	display: block;
 	width: 300;
 	height: 300;
+
 }
 
-.imagelink {
+.inputBorder {
+	border:solid 1px gray;    
+    margin: 5px 5px;
+    width: 30px;
+}
+
+
+#imagelink {
 	display:block;
 	background:url(../resources/images/comprar.jpg);
 	width: 180px;
 	height: 26px;
 }
 
-.imagelink:hover {
+#imagelink:hover {
 	display:block;
 	background:url(../resources/images/comprar2.jpg);
 	width: 180px;
@@ -313,6 +331,7 @@ li {
 
 #productDetails{
 	margin-left: 25%;
+	line-height:2;
 }
 .product {
 	height: 300px;

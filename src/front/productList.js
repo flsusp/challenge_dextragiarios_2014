@@ -1,4 +1,5 @@
-$(function(){
+$(function() {
+
 	$.ajax("/templates/productsTemplate.txt", {
 		method : 'GET',
 		success : function(template) {
