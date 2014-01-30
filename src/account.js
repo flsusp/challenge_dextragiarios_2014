@@ -51,6 +51,7 @@ function findTransfer(id) {
 	return transaction;
 }
 
+
 function find(id) {
 	var account = {};
 	account.id = id;
@@ -103,10 +104,12 @@ function find(id) {
 						var queryDelete = client.query('delete from transfers where id = ' + row.id);
 						queryDelete.on('end', function() {
 							console.info('delete finalizado');
-							var queryPog = client.query('insert into stock(idProduct, relativeQuantity, consolidada) values(' + idProduct + ',' + quantidade + ', true)');
-							queryPog.on('end', function() {
-								console.info('insertizinho de leve');
-							});
+							if (idProduct != null && quantidade != null) {
+								var queryPog = client.query('insert into stock(idProduct, relativeQuantity, consolidada) values(' + idProduct + ',' + quantidade + ', true)');
+								queryPog.on('end', function() {
+									console.info('insertizinho de leve');
+								});
+							}
 						});
 					}
 				});

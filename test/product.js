@@ -26,6 +26,7 @@ loadData.createProductWithStock = function (price, stock, callback) {
 		});
 	});
 };
+
 loadData.createAccountWithBalance = function (balance, nome, callback) {
 	pg.connect(conString, function(err, client, done) {
        	if (err) {

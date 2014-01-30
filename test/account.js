@@ -1,4 +1,4 @@
-/*var pg = require('pg');
+var pg = require('pg');
 
 var conString = require("./../src/config").config().get('conString');
 
@@ -147,4 +147,3 @@ vows.describe('Given an account with balance of 11').addBatch({
 		}
 	}
 }).export(module);
-*/

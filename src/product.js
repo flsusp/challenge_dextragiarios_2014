@@ -25,22 +25,23 @@ function allProducts(callback) {
 }
 
 function getProduct(id, callback) {
-		pg.connect(conString, function(err, client, done) {
+	pg.connect(conString, function(err, client, done) {
+		if (err) {
+			throw err;
+		}
+		client.query('SELECT * FROM product WHERE id='+id, function(err, result) {
+			done();
 			if (err) {
-				throw err;
+	           	return console.log('error ', err);
 			}
-			client.query('SELECT * FROM product WHERE id='+id, function(err, result) {
-				done();
-				if (err) {
-		           	return console.log('error ', err);
-				}
-				if (result.rows.length == 1) {
-					call(callback, result.rows[0]);
-				} else {
-					call(callback, {"status": "error"});
-				}
-			});
+			if (result.rows.length == 1) {
+				call(callback, result.rows[0]);
+			} else {
+				call(callback, {"status": "error"});
+			}
 		});
+	});
+}
 
 function findStock(id) {
 	var stock = {};

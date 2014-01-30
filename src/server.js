@@ -72,12 +72,16 @@ function start(accountRepository, productRepository, port) {
     	});	
 	});
 
+
 	app.get('/account/:id', function(request, response) {
-		console.log('/account/' + request.params.id[0]);
-		accountRepository.validaLogin((parseInt(request.params.id[0])), function(result) {
-			response.writeHeader(200, {"Content-Type": "application/json"});  
-			response.write(JSON.stringify(result));
-			response.end();
+            console.log('/account/' + request.params.id[0]);
+            accountRepository.validaLogin((parseInt(request.params.id[0])), function(result) {
+                    response.writeHeader(200, {"Content-Type": "application/json"});  
+                    response.write(JSON.stringify(result));
+                    response.end();
+            });
+    });
+
 
 	app.get('/transaction/:id', function(request, response) {
 		var transactionId = parseInt(request.params.id[0]);
