@@ -6,6 +6,16 @@ var path = require('path');
 
 params.extend(app);
 
+function returnJSON(json, response) {
+	if (json === null) {
+		response.send(404);
+	} else {
+		response.writeHeader(200, {"Content-Type": "application/json"});  
+		response.write(JSON.stringify(json));
+		response.end();
+	}
+}
+
 function start(accountRepository, productRepository, port) {
 	app.use(express.bodyParser());
 	app.param('id', /^\d+$/);
@@ -14,11 +24,14 @@ function start(accountRepository, productRepository, port) {
 	app.get('/account/:id/balance', function(request, response) {
 		console.log('/account/' + request.params.id[0] + '/balance');
 		accountRepository.find(request.params.id[0]).balance(function(balance) {
-			if (balance === null) {
+			returnJSON({balance : balance}, response);
+			/*if (balance === null) {
 				response.send(404);
 			} else {
-				response.send(200, 'Balance is ' + balance);
-			}
+				response.writeHeader(200, {"Content-Type": "application/json"});  
+				response.write(JSON.stringify({balance : balance}));
+				response.end();
+			}*/
 		});
 	});
 
