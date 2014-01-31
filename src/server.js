@@ -21,6 +21,7 @@ function start(accountRepository, productRepository, port) {
 	app.use(express.bodyParser());
 	app.param('id', /^\d+$/);
 	app.param('accountId', /^\d+$/);
+	app.param('quantidade', /^\d+$/);
 	app.use(express.static(path.join(__dirname, 'front')));
 
 	app.get('/account/:id/balance', function(request, response) {
@@ -123,6 +124,13 @@ function start(accountRepository, productRepository, port) {
 		});
 	});
 
+	app.get('/product/:id/add/:quantidade', function(request, response) {		
+		var quantidade = request.params.quantidade[0];
+		productRepository.find(request.params.id[0]).add(quantidade, function() {
+			response.send(200);
+		});
+	});
+
 	app.post('/product/:id/purchase', function(request, response) {
 		console.log('/product/' + request.params.id[0] + '/purchase');
 		var product = productRepository.find(request.params.id[0]);
@@ -161,17 +169,6 @@ function start(accountRepository, productRepository, port) {
 			response.send(200, consolidada);
 		});
 	});
-
-	/*app.post('/product/:id/purchase', function(request, response) {
-		console.log('/product/' + request.params.id[0] + '/purchase');
-		productRepository.find(request.params.id[0]).purchase(parseInt(request.body.accountId), 1, function(status) {
-			if (status == 'success') {
-				response.send(200, status);
-			} else {
-				response.send(500);
-			}
-		});
-	});*/
 
 	console.log('Listenning to port ' + port);
 	app.listen(port);
