@@ -8,4 +8,6 @@
 			<div><b>Qtd.:</b> <input type="text" name="qtd" class="inputBorder" /> </div>
 			<div><input type="button" id="imageLink" class="comprar"> 
 	</div>
+	<br />
+	<br />
 </div>

@@ -81,7 +81,7 @@ li {
 	float: top;
 }
 
-#nav {
+.nav {
 	/*background: rgba(65,72,72,0.75) url(../resources/images/nav-bar-background2.png) repeat-x center;
 	background-color:#e50014;*/
 	margin: 0 auto;
@@ -92,7 +92,7 @@ li {
 	font-family: 'Open Sans', sans-serif;
 }
 
-#nav a {
+.nav a {
 	font-family: 'Bree Serif', verdana;
 	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 	text-decoration: none;
@@ -100,8 +100,12 @@ li {
 	transition: all 0.5s ease 0s;
 }
 
-#nav a:hover {
+.nav a:hover {
 	color: #a7b3b7;
+}
+
+#nav-product {
+	width: 800px;
 }
 
 #navigation {
@@ -387,14 +391,21 @@ img{
 	font-size: 16pt;
 	font-weight: bold;
 	height: 34px;
-	
 	vertical-align: middle;
-	float: left;
+	float: right;
 }
 
 .balance-content {
 	margin-left: 5px;
 	margin-right: 5px;
 	margin-top: 4px;
-	text-align: center;
+	/*text-align: center;*/
+}
+
+#balance-nav {
+	margin-top: -26px;
+}
+
+#balance-nav-content {
+	margin-top: 4px;
 }
