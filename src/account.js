@@ -68,7 +68,12 @@ function find(id) {
 			});
 	}
 
-	account.consolidar = function(c, idProduct, quantidade) {
+	account.consolidar = function(opts) {
+
+		var c = opts.callback || function(){};
+		var idProduct = opts.idProduct || null;
+		var quantidade = opts.quantidade || null;
+
 		var callback = function() {
 			console.log('Finalizando consolidacao', id);
 			call(c);
@@ -91,28 +96,50 @@ function find(id) {
 					client.removeListener('drain', drain);
 				}
 				client.on('drain', drain);
-				var query = client.query('select id, relativeValue from transfers where idAccount=' + id + ' AND consolidada = false ORDER BY id ASC');
-				query.on('row', function(row) {
-					console.log('consolida', row.id, row.relativevalue, saldo);
-					saldo = parseInt(saldo) + parseInt(row.relativevalue);
-					if (saldo >= 0) {
-						var update = client.query('UPDATE transfers set consolidada = true WHERE id = ' + row.id + ' AND consolidada = false');
-						update.on('end', function() {
-							console.log('update finalizado');
-						});
-					} else {
-						var queryDelete = client.query('delete from transfers where id = ' + row.id);
-						queryDelete.on('end', function() {
-							console.info('delete finalizado');
-							if (idProduct != null && quantidade != null) {
-								var queryPog = client.query('insert into stock(idProduct, relativeQuantity, consolidada) values(' + idProduct + ',' + quantidade + ', true)');
-								queryPog.on('end', function() {
-									console.info('insertizinho de leve');
-								});
-							}
-						});
-					}
-				});
+				client.query('select id, relativeValue from transfers where idAccount=' + id + ' AND consolidada = false ORDER BY id ASC',
+					function(err, result) {
+						console.log('consolida', row.id, row.relativevalue, saldo);
+						saldo = parseInt(saldo) + parseInt(row.relativevalue);
+						if (saldo >= 0) {
+							var update = client.query('UPDATE transfers set consolidada = true WHERE id = ' + row.id + ' AND consolidada = false');
+							update.on('end', function() {
+								console.log('update finalizado');
+							});
+						} else {
+							var queryDelete = client.query('delete from transfers where id = ' + row.id);
+							queryDelete.on('end', function() {
+								console.info('delete finalizado');
+								if (idProduct != null && quantidade != null) {
+									var queryPog = client.query('insert into stock(idProduct, relativeQuantity, consolidada) values(' + idProduct + ',' + quantidade + ', true)');
+									queryPog.on('end', function() {
+										console.info('insertizinho de leve');
+									});
+								}
+							});
+						}
+					});
+				//var query;
+				// query.on('row', function(row) {
+				// 	console.log('consolida', row.id, row.relativevalue, saldo);
+				// 	saldo = parseInt(saldo) + parseInt(row.relativevalue);
+				// 	if (saldo >= 0) {
+				// 		var update = client.query('UPDATE transfers set consolidada = true WHERE id = ' + row.id + ' AND consolidada = false');
+				// 		update.on('end', function() {
+				// 			console.log('update finalizado');
+				// 		});
+				// 	} else {
+				// 		var queryDelete = client.query('delete from transfers where id = ' + row.id);
+				// 		queryDelete.on('end', function() {
+				// 			console.info('delete finalizado');
+				// 			if (idProduct != null && quantidade != null) {
+				// 				var queryPog = client.query('insert into stock(idProduct, relativeQuantity, consolidada) values(' + idProduct + ',' + quantidade + ', true)');
+				// 				queryPog.on('end', function() {
+				// 					console.info('insertizinho de leve');
+				// 				});
+				// 			}
+				// 		});
+				// 	}
+				// });
 			});
 		});
 	}

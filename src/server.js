@@ -104,9 +104,7 @@ function start(accountRepository, productRepository, port) {
 			response.send();
 			
 			var consolida = [];
-			consolida.push(conta.consolidar(function() {
-				//callback
-			}));
+			consolida.push(conta.consolidar({ productId : id }));
 			async.parallel(consolida, function() {
 				//callback
 			});
