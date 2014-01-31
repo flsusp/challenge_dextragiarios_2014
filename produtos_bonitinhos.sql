@@ -1,0 +1,16 @@
+UPDATE product SET url = '1.jpg', name = 'Bloco de Yoga', description = 'Bloco EVA para prática de Yoga' WHERE id = 1 ;
+UPDATE product SET url = '2.jpg', name = 'Braçadeira Universal', description = 'Braçadeira para corrida e esportes' WHERE id = 2 ;
+UPDATE product SET url = '3.jpg', name = 'Braçadeira Galaxy Note 3', description = 'Braçadeira para corrida e esportes'  WHERE id = 3 ;
+UPDATE product SET url = '4.jpg', name = 'Cabo iPhone 5', description = 'Cabo Lightning para iPhone 5'  WHERE id = 4 ;
+UPDATE product SET url = '5.jpg', name = 'Braçadeira Galaxy S4', description = 'Braçadeira para corrida e esportes'  WHERE id = 5;
+UPDATE product SET url = '1.jpg', name = 'Painel frontal com entradas', description = 'Painel frontal com entrada para todos os cartões' WHERE id = 6 ;
+UPDATE product SET url = '2.jpg', name = 'Caneta Espiã', description = 'Escreve mensagens secretas e ainda detecte notas ou cartões falsos!' WHERE id = 7 ;
+UPDATE product SET url = '3.jpg', name = 'Mp3 Shuffle', description = 'Super Mini MP3 Player com Entrada de Cartão MicroSD (Várias Cores) '  WHERE id = 8 ;
+UPDATE product SET url = '4.jpg', name = 'Modem 3g Desbloqueado', description = 'Modem 3g desbloqueado para Claro, Oi e Tim'  WHERE id = 9 ;
+UPDATE product SET url = '5.jpg', name = 'Pulseira de couro', description = 'Pulseira dupla de couro'  WHERE id = 10 ;
+UPDATE product SET url = '1.jpg', name = 'Helicóptero de controle remoto', description = 'Mini helicóptero de controle remoto' WHERE id = 11 ;
+UPDATE product SET url = '2.jpg', name = 'Óculos vintage', description = 'Óculos em lindo estilo vintage' WHERE id = 12 ;
+UPDATE product SET url = '3.jpg', name = 'Netbook', description = 'Netbook rápido e muito bom'  WHERE id = 13 ;
+UPDATE product SET url = '4.jpg', name = 'Relógio digital', description = 'Relógio com visor digital LED'  WHERE id = 14 ;
+UPDATE product SET url = '5.jpg', name = 'ABGym', description = 'ABGym até 600 contrações musculares por minuto'  WHERE id = 15 ;
+UPDATE product SET url = '5.jpg', name = 'Leitor Cartão', description = 'Leitor de cartão de memória MicroSD'  WHERE id = 16 ;

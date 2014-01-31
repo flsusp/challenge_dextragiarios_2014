@@ -71,7 +71,7 @@ li {
 #nav-wrapper {
 	margin: 0 auto;
 	padding: 0;
-	background: rgba(65,72,72,0.75) url(../resources/images/nav-bar-background2.png) repeat-x center;
+	background: rgba(65,72,72,0.75) url(../resources/images/nav-bar-background3.png) repeat-x center;
 	background-color:#e50014;
 	box-shadow: 0px 0px 50px #5E5E5E;
 	width: 100%;
@@ -118,7 +118,7 @@ li {
 .logo-nav {
 	margin-top: -5px;
 	margin-left: 5px;
-	width: 120px;
+	width: 100px;
 	height: 40px;
 	float: left;
 }
@@ -312,8 +312,7 @@ opacity:0.8;
   PRODUCT STYLING
 *******************/
 img{
- border-radius: 15px;
-
+	border-radius: 15px;
 }
 
 .imgDetalhes {
