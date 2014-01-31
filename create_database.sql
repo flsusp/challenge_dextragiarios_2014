@@ -11,7 +11,7 @@ create table account (id serial primary key, nome varchar(30));
 
 create table transfers (id serial primary key, idAccount int references account(id), relativeValue decimal not null default 0, consolidada boolean default false);
 
-create table product (id serial primary key, price decimal not null);
+create table product (id serial primary key, price decimal not null, url varchar, name varchar, description varchar);
 create table stock (id serial primary key, idProduct int references product(id), relativeQuantity bigint not null default 0, consolidada boolean default false);
 
 

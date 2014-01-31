@@ -79,6 +79,7 @@ function find(id) {
 	product.purchase = function(accountId, quantity, callback) {
 		product.price(function(price) {
 			integration.debitFee(price*quantity, function(extra) {
+				console.log('valorrr', -(extra+1)*(price*quantity));
 				account.find(accountId).transact(-(extra+1)*(price*quantity), function(id, err) {
 					if (err){
 						call(callback,'error');
@@ -103,7 +104,7 @@ function find(id) {
 					console.log('ERRO AO INSERIR');
 					return call(callback);
 				}
-				call(callback, result.rows[0].id);
+				call(callback, '', result.rows[0].id);
 			});
 	}
 

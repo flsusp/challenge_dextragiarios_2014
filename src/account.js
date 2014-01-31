@@ -118,7 +118,7 @@ function find(id) {
 	}
 
 	account.transact = function(value, callback) {
-		value = parseInt(value);
+		value = parseFloat(value);
 		pg.connect(conString, function(err, client, done) {
 			if (err) {
 				console.log('error fetching client from pool', err);
