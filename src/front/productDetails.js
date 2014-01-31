@@ -12,7 +12,10 @@ showDetails = function(id) {
 	    				data: { accountId: sessionStorage.getItem("id"), quantity: qtd}
 	    			})
 	    			.done(function(msg) {
-    					alert( "Produto comprado! " );
+    					alert("Produto comprado! " + msg);
+  					})
+  					.fail(function(msg) {
+  						alert('Parece que você não tem crédito ):');
   					});
 	    		});
 			});
