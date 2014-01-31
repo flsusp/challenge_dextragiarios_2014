@@ -31,8 +31,8 @@ li {
 .nav-busca .nav-busca-campo {
     width: 400px; 
     height: 30px; 
-    border: 1px solid #cfcfcf; 
-    color: #9a9aa5; 
+    border: 1px solid #cfcfcf;
+     color: #9a9aa5; 
     font-size: 15px; 
     padding-left: 3px; 
     float: left; 
@@ -86,9 +86,9 @@ li {
 	background-color:#e50014;*/
 	margin: 0 auto;
 	padding: 0;
-	width: 800px;
+	width: 700px;
 	height:40px;
-	top: 0px;
+	top: -10px;
 	font-family: 'Open Sans', sans-serif;
 }
 
@@ -105,9 +105,23 @@ li {
 }
 
 #navigation {
+	margin-left: 250px;
 	margin-top: 7px;
 	list-style-type: none;
 	font-family: 'Open Sans', sans-serif;
+}
+
+.logo-nav {
+	margin-top: -5px;
+	margin-left: 5px;
+	width: 120px;
+	height: 40px;
+	float: left;
+}
+
+.logo-nav img{
+	height: 30px;
+	width: 105px;
 }
 
 .title {
