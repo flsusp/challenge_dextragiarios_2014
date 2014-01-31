@@ -20,6 +20,7 @@ function returnJSON(json, response) {
 function start(accountRepository, productRepository, port) {
 	app.use(express.bodyParser());
 	app.param('id', /^\d+$/);
+	app.param('accountId', /^\d+$/);
 	app.use(express.static(path.join(__dirname, 'front')));
 
 	app.get('/account/:id/balance', function(request, response) {
@@ -109,7 +110,6 @@ function start(accountRepository, productRepository, port) {
 				//callback
 			});
 		});
-
 	});
 
 
@@ -125,13 +125,53 @@ function start(accountRepository, productRepository, port) {
 
 	app.post('/product/:id/purchase', function(request, response) {
 		console.log('/product/' + request.params.id[0] + '/purchase');
+		var product = productRepository.find(request.params.id[0]);
+		var conta = accountRepository.find(request.body.accountId);
+		product.purchase(parseInt(request.body.accountId), request.body.quantity, function(status, id) {
+			console.log('/stock/' + id + '/' + request.body.accountId);
+			response.writeHead(302, {
+		  		'Location': '/stock/' + id + '/' + request.body.accountId
+			});
+			response.send();
+			
+			var consolida = [];
+			consolida.push(product.consolidar(function() {
+				
+			}));
+			async.parallel(consolida, function() {
+				//callback
+			});
+		});
+	});
+
+	app.get('/stock/:id/:accountId', function(request, response) {
+		var stockId = parseInt(request.params.id[0]);
+		var tempo = new Date().getTime();
+		var conta = accountRepository.find(request.params.accountId[0]);
+		while ((new Date().getTime() - tempo) < 1000) {}
+		productRepository.findStock(stockId).getStatus(function(consolidada) {
+			console.log('consolidade_;', consolidada, 'idd', request.params.accountId[0]);
+			if (consolidada) {
+				var consolida = [];
+				consolida.push(conta.consolidar());
+				async.parallel(consolida, function() {
+					//callback
+				});
+			}
+			response.send(200, consolidada);
+		});
+	});
+
+	/*app.post('/product/:id/purchase', function(request, response) {
+		console.log('/product/' + request.params.id[0] + '/purchase');
 		productRepository.find(request.params.id[0]).purchase(parseInt(request.body.accountId), 1, function(status) {
 			if (status == 'success') {
 				response.send(200, status);
+			} else {
+				response.send(500);
 			}
-			response.send(500);
 		});
-	});
+	});*/
 
 	console.log('Listenning to port ' + port);
 	app.listen(port);
